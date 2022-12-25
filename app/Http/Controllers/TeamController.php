@@ -31,6 +31,8 @@ class TeamController extends Controller
 
     public function show(Team $team)
     {
+        $team = Team::with('seasons')->find($team->id);
+
         return view('teams.show', [
             'team' => $team,
         ]);

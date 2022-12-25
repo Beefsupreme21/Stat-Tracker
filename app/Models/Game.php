@@ -10,11 +10,14 @@ class Game extends Model
     use HasFactory;
 
     protected $fillable = [
+        'team_id',
+        'season_id',
         'date',
         'location',
-        'umpire',
-        'weather',
         'opponent',
+        'weather',
+        'umpire',
+        'outcome',
     ];
 
     public function stats()

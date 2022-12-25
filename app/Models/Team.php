@@ -23,6 +23,11 @@ class Team extends Model
         return $this->hasMany(Game::class);
     }
 
+    public function seasons()
+    {
+        return $this->belongsToMany(Season::class);
+    }
+
     public function players()
     {
         return $this->belongsToMany(Player::class);

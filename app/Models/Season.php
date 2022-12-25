@@ -13,4 +13,9 @@ class Season extends Model
         'name',
         'year',
     ];
+
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class);
+    }
 }
