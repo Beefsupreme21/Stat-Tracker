@@ -27,13 +27,13 @@ Route::get('/teams/{team:name}', [TeamController::class, 'show']);
 Route::get('/players', [PlayerController::class, 'index']);
 Route::get('/players/create', [PlayerController::class, 'create']);
 Route::post('/players', [PlayerController::class, 'store']);
-Route::get('/players/{player:name}/edit', [PlayerController::class, 'edit']);
-Route::put('/players/{player:name}', [PlayerController::class, 'update']);
-Route::delete('/players/{player:name}', [PlayerController::class, 'destroy']);
-Route::get('/players/{player:name}', [PlayerController::class, 'show']);
+Route::get('/players/{player}/edit', [PlayerController::class, 'edit']);
+Route::put('/players/{player}', [PlayerController::class, 'update']);
+Route::delete('/players/{player}', [PlayerController::class, 'destroy']);
+Route::get('/players/{player}', [PlayerController::class, 'show']);
 
 Route::get('/games', [GameController::class, 'index']);
-Route::get('/games/create/{team:name}', [GameController::class, 'create']);
+Route::get('/games/create', [GameController::class, 'create']);
 Route::post('/games', [GameController::class, 'store']);
 Route::get('/games/{game}/edit', [GameController::class, 'edit']);
 Route::put('/games/{game}', [GameController::class, 'update']);

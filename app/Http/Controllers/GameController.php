@@ -19,10 +19,13 @@ class GameController extends Controller
         ]);
     }
 
-    public function create(Team $team)
+    public function create()
     {
+        $teams = Team::with('seasons')->get();
+
+
         return view('games.create', [
-            'team' => $team,
+            'teams' => $teams,        
         ]);
     }
 
@@ -48,6 +51,8 @@ class GameController extends Controller
 
     public function show(Game $game)
     {
+        $game->load('stats.team', 'stats.player');
+
         return view('games.show', [
             'game' => $game
         ]);

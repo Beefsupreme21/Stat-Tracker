@@ -14,8 +14,14 @@ class Season extends Model
         'year',
     ];
 
+    public function games()
+    {
+        return $this->hasMany(Game::class);
+    }
+
     public function teams()
     {
         return $this->belongsToMany(Team::class);
     }
+
 }

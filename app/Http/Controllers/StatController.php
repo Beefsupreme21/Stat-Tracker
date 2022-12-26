@@ -16,7 +16,7 @@ class StatController extends Controller
 {
     public function index()
     {
-        $stats =  Stat::paginate(15);
+        $stats = Stat::with('player', 'team')->get();
 
         return view('stats.index', [
             'stats' => $stats, 

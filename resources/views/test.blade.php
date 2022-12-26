@@ -1,83 +1,38 @@
 <x-layout>
-    <form action="/games" method="POST">
-        @csrf
-        <div>
-            <div>
-                <h3>Add a new game</h3>
-                <div>
-                
-                <div>
-                    <label for="team">Team</label>
-                    <input type="text" name="team">
-                </div>
+    @foreach ($games as $game)
+        <tr>
+            <td>{{ $game->runs }}</td>
+            <td>{{ $game->doubles }}</td>
+        </tr>
+        @php
+            $totalRuns += $game->runs;
+            $totalDoubles += $game->doubles;
+        @endphp
+    @endforeach
 
-                <div>
-                    <label for="season">Season</label>
-                    <div>
-                        <input type="text" name="season">
-                    </div>
-                    @error('season')
-                        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                    @enderror
-                </div>
+    <tr>
+        <td>Total Runs: {{ $totalRuns }}</td>
+        <td>Total Doubles: {{ $totalDoubles }}</td>
+    </tr>
 
-                <div>
-                    <label for="date">Date</label>
-                    <div>
-                        <input type="date" name="date">
-                    </div>
-                </div>
-        
-                <div>
-                    <label for="location">Location</label>
-                    <div>
-                        <input type="text" name="location">
-                    </div>
-                </div>
-        
-                <div>
-                    <label for="opponent">Opponent</label>
-                    <div>
-                        <input id="text" name="opponent">
-                    </div>
-                </div>
-        
-                <div>
-                    <label for="weather">Weather</label>
-                    <div>
-                        <input type="text" name="weather" id="weather">
-                    </div>
-                </div>
-        
-                <div>
-                    <label for="umpire">Umpire</label>
-                    <div>
-                        <input type="text" name="umpire" id="umpire">
-                    </div>
-                </div>
-        
-                <div>
-                    <label for="outcome">Win/Loss</label>
-                    <div>
-                        <div>
-                            <input type="radio" id="win" name="outcome" value="win">
-                            <label for="win">Win</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="loss" name="outcome" value="lose">
-                            <label for="loss">Loss</label>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </div>
-        </div>
-      
-        <div class="pt-5">
-            <div class="flex justify-end">
-                <button type="button">Cancel</button>
-                <button type="submit">Add Stats</button>
-            </div>
-        </div>
-    </form>
+
+    {{-- @php
+        $totalRuns.$stat->player->name += $stat->runs;
+        $totalDoubles.$stat->player->name += $game->doubles;
+    @endphp --}}
+
+    {{-- @php
+        $totalRuns[$stat->player->name]['runs'] += $stat->runs;
+        $totalDoubles[$stat->player->name]['doubles'] += $game->doubles;
+    @endphp --}}
+
+    {{-- @php
+        ${'totalRuns' . $stat->player->name} += $stat->runs;
+        ${'totalDoubles' . $stat->player->name} += $game->doubles;
+    @endphp --}}
+
+    {{-- <tr>
+        <td>Total Runs: {{ $totalRuns }}{{ $stat->player->name }}</td>
+        <td>Total Doubles: {{ $totalDoubles }}{{ $stat->player->name }}</td>
+    </tr> --}}
 </x-layout>

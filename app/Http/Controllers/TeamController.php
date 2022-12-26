@@ -31,7 +31,9 @@ class TeamController extends Controller
 
     public function show(Team $team)
     {
-        $team = Team::with('seasons')->find($team->id);
+        $team->load('seasons.games', 'players', 'stats');
+
+        return $careerStats = $team->stats->groupBy('player_id')->reduce();
 
         return view('teams.show', [
             'team' => $team,
@@ -47,11 +49,11 @@ class TeamController extends Controller
 
     public function update(Request $request, Team $team)
     {
-        $updatedTeam = $request->validate([
+        $validated = $request->validate([
             'name'=> 'required'
         ]);
 
-        $team->update($updatedTeam);
+        $team->update($validated);
         return back();
     }
 

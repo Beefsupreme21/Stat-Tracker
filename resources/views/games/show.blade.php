@@ -26,4 +26,8 @@
         </form>
     </div>
     <span>Created At </span>{{ $game->created_at }}
+
+    <x-statlist :stats="$game->stats" />
+
+
 </x-layout>
