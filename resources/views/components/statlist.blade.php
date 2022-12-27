@@ -25,7 +25,7 @@
     </thead>
     <tbody>
         @foreach ($stats as $stat)
-            <x-statitem :stat="$stat" />
+            <x-statitem :stat="$stat" :team="$stat->team" :player="$stat->player" />
         @endforeach
     </tbody>
 </table>

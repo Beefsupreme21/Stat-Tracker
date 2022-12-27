@@ -1,8 +1,8 @@
-@props(['stat'])
+@props(['stat', 'player', 'team'])
 
 <tr {{ $attributes }}>
-    <td class="px-4 py-3">{{ $stat->player->name }}</td>
-    <td class="px-4 py-3 border-r border-gray-600">{{ $stat->team->name }}</td>
+    <td class="px-4 py-3">{{ $player->name }}</td>
+    <td class="px-4 py-3 border-r border-gray-600">{{ $team->name }}</td>
     <td class="px-4 py-3">{{ $stat->plate_attempts }}</td>
     <td class="px-4 py-3 border-r border-gray-600">{{ $stat->at_bats }}</td>
     <td class="px-4 py-3">{{ $stat->runs }}</td>

@@ -4,6 +4,11 @@
     </div>
     <hr>
     <div>
+        <h2>Stats</h2>
+        <x-statlist :stats="$stats" />
+    </div>
+    {{-- <hr>
+    <div>
         <h2>Seasons</h2>
         <ul>
             @foreach ($team->seasons as $season)
@@ -12,7 +17,7 @@
                 </li>
             @endforeach
         </ul>
-    </div>    
+    </div>  --}}   
     <hr>
     <div>
         <h3>Games</h3>
