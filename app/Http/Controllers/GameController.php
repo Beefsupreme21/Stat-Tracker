@@ -23,15 +23,14 @@ class GameController extends Controller
     {
         $teams = Team::with('seasons')->get();
 
-
         return view('games.create', [
-            'teams' => $teams,        
+            'teams' => $teams,      
         ]);
     }
 
-    public function store(Request $request, Team $team)
+    public function store(Request $request)
     {
-        $game = $request->validate([
+        $validated = $request->validate([
             'team_id'=> 'required',
             'season_id'=> 'required',
             'date'=> 'required',
@@ -42,11 +41,9 @@ class GameController extends Controller
             'outcome'=> 'required',
         ]);
 
-        Game::create($game);
-        return redirect('/');
+        Game::create($validated);
 
-        return redirect('/stats/create')->with($team);
-
+        return redirect('/stats/create?team_id='.$validated['team_id'].'&season_id='.$validated['season_id']);
     }
 
     public function show(Game $game)

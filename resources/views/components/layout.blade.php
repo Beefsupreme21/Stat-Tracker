@@ -9,7 +9,6 @@
         <script src="//unpkg.com/alpinejs" defer></script>
         <link rel="stylesheet" href="">
         <link rel="stylesheet" type="text/css" href="{{ asset('/style.css') }}" />
-        <script src="https://kit.fontawesome.com/19ab508515.js" crossorigin="anonymous"></script>
     </head>
 
     <body>

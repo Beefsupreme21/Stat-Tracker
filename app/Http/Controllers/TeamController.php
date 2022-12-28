@@ -11,7 +11,9 @@ class TeamController extends Controller
     {
         $teams =  Team::with('players')->get();
 
-        return view('teams.index', compact('teams'));
+        return view('teams.index', [
+            'teams' => $teams, 
+        ]);
     }
 
     public function create()
@@ -31,7 +33,14 @@ class TeamController extends Controller
 
     public function show(Team $team)
     {
-        $team->load(['seasons.games', 'players', 'stats.team:id,name', 'stats.player:id,name']);
+        $team->load([
+            'seasons.games' => function ($query) use ($team) {
+                $query->where('team_id', $team->id);
+            }, 
+            'players', 
+            'stats.team:id,name', 
+            'stats.player:id,name'
+        ]);
 
         $playerCareerStats = $team->stats->groupBy('player_id');
 

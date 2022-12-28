@@ -1,16 +1,21 @@
 <?php
 
+use App\Models\Team;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\StatController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\PlayerController;
-use App\Http\Controllers\TeamPlayerController;
 use App\Http\Controllers\PlayerTeamController;
+use App\Http\Controllers\TeamPlayerController;
 
 
 Route::get('/test', function () {
-    return view('test');
+    $teams = Team::all();
+
+    return view('test', [
+        'teams' => $teams, 
+    ]);
 });
 
 Route::get('/', [TeamController::class, 'index']);
@@ -48,9 +53,9 @@ Route::put('/stats/{stat}', [StatController::class, 'update']);
 Route::delete('/stats/{stat}', [StatController::class, 'destroy']);
 Route::get('/stats/{stat}', [StatController::class, 'show']);
 
-Route::get('/teams/{team:name}/players', [TeamPlayerController::class, 'index']);
-Route::post('/teams/{team:name}/players', [TeamPlayerController::class, 'store']);
-Route::delete('/teams/{team:name}/players/{player:name}', [TeamPlayerController::class, 'destroy']);
+Route::get('/teams/{team}/players', [TeamPlayerController::class, 'index']);
+Route::post('/teams/{team}/players', [TeamPlayerController::class, 'store']);
+Route::delete('/teams/{team}/players/{player:name}', [TeamPlayerController::class, 'destroy']);
 Route::get('/players/{player:name}/teams', [PlayerTeamController::class, 'index']);
 Route::post('/players/{player:name}/teams', [PlayerTeamController::class, 'store']);
 Route::delete('/players/{player:name}/teams/{team:name}', [PlayerTeamController::class, 'destroy']);

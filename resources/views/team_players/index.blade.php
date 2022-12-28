@@ -15,8 +15,9 @@
                     <th class="p-4">{{ $team->name }} Players</th>
                 </tr>
             </thead>
-            @foreach ($team->players as $player)
             <tbody>
+                @foreach ($team->players as $player)
+
                 <tr class="border border-gray-600">
                     <td class="p-4">
                         <a href="/players/{{ $player->name }}">
@@ -35,8 +36,9 @@
                         </form>
                     </td>
                 </tr>
+                @endforeach
+
             </tbody>
-            @endforeach
         </table>
 
         <table class="w-2/5 h-min">
@@ -45,26 +47,36 @@
                     <th class="p-4">Player Name</th>
                 </tr>
             </thead>
-            @foreach ($players as $player)
             <tbody>
                 <tr class="border border-gray-600">
                     <td class="p-4">
-                        <a href="/players/{{ $player->name }}">
+                        <a href="/players/create?team_id={{ $team->id }}">
                             <button class="text-blue-500 hover:underline pr-3">
-                                {{ $player->name }}
+                                Add new Player
                             </button>
                         </a>
                     </td>
-                    <form action="/teams/{{ $team->name }}/players" method="POST">
-                        <td>            
-                            @csrf
-                            <input type="hidden" name="player_id" value="{{ $player->id }}">
-                            <button type="submit">Add</button>
-                        </td>
-                    </form>
                 </tr>
+                @foreach ($players as $player)
+                    <tr class="border border-gray-600">
+                        <td class="p-4">
+                            <a href="/players/{{ $player->id }}">
+                                <button class="text-blue-500 hover:underline pr-3">
+                                    {{ $player->name }}
+                                </button>
+                            </a>
+                        </td>
+                        <form action="/teams/{{ $team->id }}/players" method="POST">
+                            <td>            
+                                @csrf
+                                <input type="hidden" name="player_id" value="{{ $player->id }}">
+                                <button type="submit">Add</button>
+                            </td>
+                        </form>
+                    </tr>
+                @endforeach
+
             </tbody>
-            @endforeach
         </table>
     </div>
 </x-layout>

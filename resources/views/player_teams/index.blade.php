@@ -57,14 +57,15 @@
                             </button>
                         </a>
                     </td>
-                    <form action="/players/{{ $player->name }}/teams" method="POST">
-                        <td>            
+                    <td>           
+                        <form action="/players/{{ $player->name }}/teams" method="POST">
                             @csrf
                             <input type="hidden" name="team_id" value="{{ $team->id }}">
                             <button type="submit" class="hover:underline">Add</button>
-                        </td>
-                    </form>
+                        </form>
+                    </td>
                 </tr>
+
             </tbody>
             @endforeach
         </table>

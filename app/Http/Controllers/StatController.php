@@ -25,14 +25,17 @@ class StatController extends Controller
 
     public function create()
     {
-        $teams = Team::all();
-        $players = Player::all();
+        $teams = Team::with('players', 'seasons')->get();
         $games = Game::all();
+
+        $team = Team::findOrFail(request('team_id'));
+
 
         return view('stats.create', [
             'teams' => $teams, 
-            'players' => $players, 
             'games' => $games, 
+            'team' => $team,        
+
         ]);
     }
 

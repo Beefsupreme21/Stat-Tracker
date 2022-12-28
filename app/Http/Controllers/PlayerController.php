@@ -28,12 +28,17 @@ class PlayerController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $player = $request->validate([
+    {   
+        $validated = $request->validate([
             'name'=> 'required'
         ]);
 
-        Player::create($player);
+        Player::create($validated);
+
+        if (request('team_id')) {
+            return redirect('/teams/'.request('team_id').'/players');
+        }
+
         return redirect('/players');
     }
 
