@@ -71,7 +71,7 @@
                     <ul>
                         @foreach ($team->players as $player)
                             <li class="mt-2">
-                                <a href="/player/{{ $player->id }}">{{ $player->name }}</a>
+                                <a href="/players/{{ $player->id }}">{{ $player->name }}</a>
                             </li>
                         @endforeach
                     </ul>

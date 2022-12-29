@@ -4,7 +4,7 @@
         <div>
             <div class="flex m-10">
                 <label for="team" class="mx-10">Team</label>
-                <select x-model="currentTeam" x-on:change="changeTeam()" name="team_id" >
+                <select x-model="currentTeam" name="team_id" >
                     @foreach ($teams as $team)
                         <option value="{{ $team->id }}">{{ $team->name }}</option>
                     @endforeach
@@ -28,7 +28,9 @@
 
 
 
-
+    <script>
+        let teamId = {{ request('team_id') }};
+    </script>
 
     <script>
         document.addEventListener('alpine:init', () => {
@@ -36,25 +38,14 @@
                 options: [],
                 currentTeam: '',
 
-                // fetchTeam() {
-                //     if ( request('team_id') ) {
-                //         return this.currentTeam = {{ request('team_id') }}
-                //     }
-                // },
-
-                // fetchTeam() {
-                //     this.currentTeam = {{ request('team_id') }}
-                // },
-
-                updateSeasonOptions() {
-                    // replace with a function that fetches the dependent options from your database
-                    this.dependentOptions = ['Dependent Option 1', 'Dependent Option 2', 'Dependent Option 3']
+                fetchTeam() {
+                    if (teamId) {
+                        this.currentTeam = teamId;
+                    } else {
+                        this.currentTeam = 1;
+                    }
                 },
 
-                updatePlayerOptions() {
-                    // replace with a function that fetches the second set of dependent options from your database
-                    this.dependentOptions2 = ['Dependent Option 4', 'Dependent Option 5', 'Dependent Option 6']
-                }
             }))
         })
     </script>
@@ -75,3 +66,14 @@ else
             </template>
         </select>
     </form> --}}
+
+
+    {{-- fetchTeam() {
+        this.currentTeam = {{ request('team_id') }}
+    },
+    updateSeasonOptions() {
+        this.dependentOptions = ['Dependent Option 1', 'Dependent Option 2', 'Dependent Option 3']
+    },
+    updatePlayerOptions() {
+        this.dependentOptions2 = ['Dependent Option 4', 'Dependent Option 5', 'Dependent Option 6']
+    } --}}
