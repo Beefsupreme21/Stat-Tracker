@@ -16,7 +16,7 @@
             <x-navbar />   
         </header>
         <main>
-            <div class="min-h-screen my-16">
+            <div class="min-h-screen my-12">
                 {{ $slot }}
             </div>
         </main>

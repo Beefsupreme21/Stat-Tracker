@@ -1,26 +1,26 @@
 @props(['stats'])
 
 <table {{ $attributes }}>
-    <thead> 
-        <tr class="border-b border-gray-600 border-collapse text-left">
-            <th class="px-4">Player</th>
-            <th class="px-4">Team</th>
-            <th class="px-4">PA</th>
-            <th class="px-4">AB</th>
-            <th class="px-4">R</th>
-            <th class="px-4">H</th>
-            <th class="px-4">2B</th>
-            <th class="px-4">3B</th>
-            <th class="px-4">HR</th>
-            <th class="px-4">RBI</th>
-            <th class="px-4">BB</th>
-            <th class="px-4">SO</th>
-            <th class="px-4">Sac</th>
-            <th class="px-4">HRO</th>
-            <th class="px-4">AVG</th>
-            <th class="px-4">OBP</th>
-            <th class="px-4">SLG</th>
-            <th class="px-4">OPS</th>
+    <thead class="min-w-full divide-y divide-gray-300"> 
+        <tr>
+            <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">Player</th>
+            <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">Team</th>
+            <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">PA</th>
+            <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">AB</th>
+            <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">R</th>
+            <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">H</th>
+            <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">2B</th>
+            <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">3B</th>
+            <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">HR</th>
+            <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">RBI</th>
+            <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">BB</th>
+            <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">SO</th>
+            <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">Sac</th>
+            <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">HRO</th>
+            <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">AVG</th>
+            <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">OBP</th>
+            <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">SLG</th>
+            <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">OPS</th>
         </tr>
     </thead>
     <tbody>
