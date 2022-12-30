@@ -24,7 +24,11 @@ class StatController extends Controller
 
     public function create()
     {
-        $team = Team::with('players')->findOrFail(request('team_id'));
+        $team = Team::with('players')->find(request('team_id'));
+        
+        if (!$team) {
+            return back();
+        }
 
         return view('stats.create', [
             'team' => $team
