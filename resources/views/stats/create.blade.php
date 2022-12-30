@@ -1,45 +1,22 @@
 <x-layout>
     <form action="/stats" method="POST" class="border border-gray-200 max-w-[1200px] mx-auto mt-12 rounded-xl p-6">
         @csrf
+        <input type="hidden" name="team_id" value="{{ request('team_id') }}" />
+        <input type="hidden" name="game_id" value="{{ request('game_id') }}" />
         <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
             <div class="space-y-6 pt-8 sm:space-y-5 sm:pt-10">
                 <h3 class="text-lg font-medium leading-6 text-gray-900">Add stats</h3>
                 <div class="space-y-6 sm:space-y-5">
-                    <div x-data="dropdown" x-init="fetchOptions()">
-                        <div class="sm:grid sm:grid-cols-2 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-                            <label for="team" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Team</label>
-                            <div class="mt-1 sm:col-span-1 sm:mt-0">
-                                <select name="team_id" class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm">
-                                    @foreach ($teams as $team)
-                                        <option value="{{ $team->id }}" @selected(request('team_id') == $team->id)>{{ $team->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-    
-                        <div class="sm:grid sm:grid-cols-2 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-                            <label for="season" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Season</label>
-                            <div class="mt-1 sm:col-span-1 sm:mt-0">
-                                <select name="season_id" class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm">
-                                    @foreach ($team->seasons as $season)
-                                        <option value="{{ $season->id }}" @selected(request('season_id') == $season->id)>{{ $season->year }} - {{ $season->name }}</option>
-                                    @endforeach                                
-                                </select>
-                            </div>
-                        </div>
-    
-                        <div class="sm:grid sm:grid-cols-2 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-                            <label for="player" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Player</label>
-                            <div class="mt-1 sm:col-span-1 sm:mt-0">
-                                <select name="player_id" class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm">
-                                    @foreach ($team->players as $player)
-                                        <option value="{{$player->id}}">{{$player->name}}</option>
-                                    @endforeach       
-                                </select>
-                            </div>
+                    {{-- <div class="sm:grid sm:grid-cols-2 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                        <label for="team" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Team</label>
+                        <div class="mt-1 sm:col-span-1 sm:mt-0">
+                            <select name="team_id" class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm">
+                                @foreach ($teams as $team)
+                                    <option value="{{ $team->id }}" @selected(request('team_id') == $team->id)>{{ $team->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
-
 
                     <div class="sm:grid sm:grid-cols-2 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
                         <label for="game_id" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Game ID</label>
@@ -48,6 +25,19 @@
                                 @foreach ($games as $game)
                                     <option value="{{$game->id}}">{{$game->date}}</option>
                                 @endforeach                                
+                            </select>
+                        </div>
+                    </div>
+                    --}}
+
+                    <div class="sm:grid sm:grid-cols-2 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                        <label for="player" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Player</label>
+                        <div class="mt-1 sm:col-span-1 sm:mt-0">
+                            <select name="player_id" class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm">
+                                <option value=""></option>
+                                @foreach ($team->players as $player)
+                                    <option value="{{$player->id}}">{{$player->name}}</option>
+                                @endforeach       
                             </select>
                         </div>
                     </div>
@@ -150,31 +140,4 @@
             </div>
         </div>
     </form>
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('dropdown', () => ({
-                options: [],
-                selectedOption: '',
-                dependentOptions: [],
-                selectedDependentOption: '',
-                dependentOptions2: [],
-                selectedDependentOption2: '',
-
-                fetchOptions() {
-                    // replace with a function that fetches the options from your database
-                    this.options = ['Option 1', 'Option 2', 'Option 3']
-                },
-
-                updateSeasonOptions() {
-                    // replace with a function that fetches the dependent options from your database
-                    this.dependentOptions = ['Dependent Option 1', 'Dependent Option 2', 'Dependent Option 3']
-                },
-
-                updatePlayerOptions() {
-                    // replace with a function that fetches the second set of dependent options from your database
-                    this.dependentOptions2 = ['Dependent Option 4', 'Dependent Option 5', 'Dependent Option 6']
-                }
-            }))
-        })
-    </script>
 </x-layout>

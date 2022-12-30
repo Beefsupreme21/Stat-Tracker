@@ -74,20 +74,26 @@
             <div class="grid grid-cols-1 gap-4 lg:col-span-2">
                 <div class="mt-8 -my-2 -mx-4 overflow-x-auto sm:-mx-6 md:px-6 lg:px-8 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle">
-                        <h1 class="text-xl font-semibold text-gray-900 mb-2">Recent Games</h1>
+                        <div class="flex items-center justify-between">
+                            <h2 class="text-xl font-semibold text-gray-900 mb-2">Recent Games</h2>
+                            <a href="/games/create?team_id={{ $team->id }}">Add Game</a>
+                        </div>
                         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
                             <table class="min-w-full divide-y divide-gray-300">
                                 @foreach ($team->seasons as $season)
                                     <tr class="bg-gray-200">
-                                        <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-sm font-semibold text-gray-900" colspan="4">{{ $season->year }} - {{ $season->name }}</th>
+                                        <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-sm font-semibold text-gray-900" colspan="5">{{ $season->year }} - {{ $season->name }}</th>
                                     </tr>
                                     <tbody class="divide-y divide-gray-200 bg-white">
                                         @foreach ($season->games as $game)
                                             <tr>
-                                                <th scope="col" class="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">{{ date('M d, y', strtotime( $game->date )) }}</th>
-                                                <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">{{ date('g:i a', strtotime( $game->date )) }}</th>
-                                                <th scope="col" class="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">{{ $game->outcome }}</th>
-                                                <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">{{ $game->opponent }}</th>
+                                                <td scope="col" class="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">{{ date('M d, y', strtotime( $game->date )) }}</td>
+                                                <td scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">{{ date('g:i a', strtotime( $game->date )) }}</td>
+                                                <td scope="col" class="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">{{ $game->outcome }}</td>
+                                                <td scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">{{ $game->opponent }}</td>
+                                                <td scope="col" class="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
+                                                    <a href="/games/{{ $game->id }}">View Game</a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

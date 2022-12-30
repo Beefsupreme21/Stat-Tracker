@@ -7,27 +7,7 @@
                 <div class="space-y-6 pt-8 sm:space-y-5 sm:pt-10">
                     <h3 class="text-lg font-medium leading-6 text-gray-900">Add a new game</h3>
                     <div class="space-y-6 sm:space-y-5">
-                        <div class="sm:grid sm:grid-cols-2 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-                            <label for="team" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Team</label>
-                            <div class="mt-1 sm:col-span-1 sm:mt-0">
-                                <select name="team_id" class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm">
-                                    @foreach ($teams as $team)
-                                        <option value="{{ $team->id }}" @selected(request('team_id') == $team->id)>{{ $team->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div class="sm:grid sm:grid-cols-2 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-                            <label for="season" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Season</label>
-                            <div class="mt-1 sm:col-span-1 sm:mt-0">
-                                <select name="season_id" class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm">
-                                    @foreach ($team->seasons as $season)
-                                        <option value="{{ $season->id }}">{{ $season->year }} - {{ $season->name }}</option>
-                                    @endforeach                                
-                                </select>
-                            </div>
-                        </div>
+                        <x-team-season-inputs :teams="$teams" />
     
                         <div class="sm:grid sm:grid-cols-2 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
                             <label for="date" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Date</label>

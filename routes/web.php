@@ -45,13 +45,7 @@ Route::put('/games/{game}', [GameController::class, 'update']);
 Route::delete('/games/{game}', [GameController::class, 'destroy']);
 Route::get('/games/{game}', [GameController::class, 'show']);
 
-Route::get('/stats', [StatController::class, 'index']);
-Route::get('/stats/create', [StatController::class, 'create']);
-Route::post('/stats', [StatController::class, 'store']);
-Route::get('/stats/{stat}/edit', [StatController::class, 'edit']);
-Route::put('/stats/{stat}', [StatController::class, 'update']);
-Route::delete('/stats/{stat}', [StatController::class, 'destroy']);
-Route::get('/stats/{stat}', [StatController::class, 'show']);
+Route::resource('/stats', StatController::class);
 
 Route::get('/teams/{team}/players', [TeamPlayerController::class, 'index']);
 Route::post('/teams/{team}/players', [TeamPlayerController::class, 'store']);
