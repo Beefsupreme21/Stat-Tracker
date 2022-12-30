@@ -1,5 +1,6 @@
 <x-layout>
     <h1>Show Page</h1>
+    <a href="/teams/{{ $game->team_id }}">Back to Team Page</a>
     <div class="flex">
         <div>
             <ul>

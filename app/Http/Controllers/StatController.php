@@ -6,7 +6,6 @@ use App\Models\Game;
 use App\Models\Stat;
 use App\Models\Team;
 use App\Models\Player;
-use App\Models\PlayerTeam;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreStatRequest;
 use App\Http\Requests\UpdateStatRequest;
@@ -34,7 +33,7 @@ class StatController extends Controller
 
     public function store(Request $request)
     {
-        $stat = $request->validate([
+        $validated = $request->validate([
             'game_id' => 'required',
             'player_id' => 'required',
             'team_id' => 'required',
@@ -52,16 +51,9 @@ class StatController extends Controller
             'home_run_outs' => 'required',
         ]);
 
-        $playerTeam = $request->only([
-            'player_id',
-            'team_id',
-        ]);
+        Stat::create($validated);
 
-        PlayerTeam::firstOrCreate($playerTeam);
-
-        Stat::create($stat);
-
-        return redirect('/stats');
+        return redirect("/games/{$validated['game_id']}");
     }
 
     public function show(Stat $stat)

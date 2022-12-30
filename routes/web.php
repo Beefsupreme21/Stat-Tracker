@@ -21,13 +21,7 @@ Route::get('/test', function () {
 Route::get('/', [TeamController::class, 'index']);
 
 
-Route::get('/teams', [TeamController::class, 'index']);
-Route::get('/teams/create', [TeamController::class, 'create']);
-Route::post('/teams', [TeamController::class, 'store']);
-Route::get('/teams/{team:name}/edit', [TeamController::class, 'edit']);
-Route::put('/teams/{team}', [TeamController::class, 'update']);
-Route::delete('/teams/{team:name}', [TeamController::class, 'destroy']);
-Route::get('/teams/{team:name}', [TeamController::class, 'show']);
+Route::resource('/teams', TeamController::class);
 
 Route::get('/players', [PlayerController::class, 'index']);
 Route::get('/players/create', [PlayerController::class, 'create']);
@@ -49,10 +43,10 @@ Route::resource('/stats', StatController::class);
 
 Route::get('/teams/{team}/players', [TeamPlayerController::class, 'index']);
 Route::post('/teams/{team}/players', [TeamPlayerController::class, 'store']);
-Route::delete('/teams/{team}/players/{player:name}', [TeamPlayerController::class, 'destroy']);
-Route::get('/players/{player:name}/teams', [PlayerTeamController::class, 'index']);
-Route::post('/players/{player:name}/teams', [PlayerTeamController::class, 'store']);
-Route::delete('/players/{player:name}/teams/{team:name}', [PlayerTeamController::class, 'destroy']);
+Route::delete('/teams/{team}/players/{player}', [TeamPlayerController::class, 'destroy']);
+Route::get('/players/{player}/teams', [PlayerTeamController::class, 'index']);
+Route::post('/players/{player}/teams', [PlayerTeamController::class, 'store']);
+Route::delete('/players/{player}/teams/{team}', [PlayerTeamController::class, 'destroy']);
 
 Route::post('/players/search', function() {
     return redirect('/players?search=' . request('search'));
