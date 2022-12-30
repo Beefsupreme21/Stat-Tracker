@@ -35,13 +35,17 @@
             selectedSeason: '',
 
             get teamSeasons() {
-                if (!this.selectedTeamId) {
-                    return [];
-                }
+                if (this.selectedTeamId) {
+                    const team = this.teams.find((team) => { 
+                        return team.id === parseInt(this.selectedTeamId);
+                    });
 
-                return this.teams.find((team) => { 
-                    return team.id === parseInt(this.selectedTeamId);
-                }).seasons;
+                    if (team.seasons.length) {
+                        return team.seasons;
+                    }
+                }
+                
+                return [];
             },
         }))
     })
