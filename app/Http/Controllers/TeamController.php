@@ -9,7 +9,7 @@ class TeamController extends Controller
 {
     public function index()
     {
-        $teams =  Team::with('players')->get();
+        $teams =  Team::with('games', 'players')->get();
 
         return view('teams.index', [
             'teams' => $teams, 
@@ -23,11 +23,11 @@ class TeamController extends Controller
 
     public function store(Request $request)
     {
-        $team = $request->validate([
+        $validated = $request->validate([
             'name'=> 'required'
         ]);
 
-        Team::create($team);
+        Team::create($validated);
         return redirect('/teams');
     }
 
@@ -91,6 +91,5 @@ class TeamController extends Controller
     {
         $team->delete();
         return back();
-
     }
 }

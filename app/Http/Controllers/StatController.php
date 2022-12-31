@@ -76,7 +76,7 @@ class StatController extends Controller
 
     public function update(Request $request, Stat $stat)
     {
-        $statUpdated = $request->validate([
+        $validated = $request->validate([
             'plate_attempts' => 'required',
             'at_bats' => 'required',
             'runs' => 'required',
@@ -91,7 +91,7 @@ class StatController extends Controller
             'home_run_outs' => 'required',
         ]);
 
-        $stat->update($statUpdated);
+        $stat->update($validated);
         return redirect('/stats');
     }
 

@@ -1,7 +1,9 @@
 @props(['stat', 'player', 'team'])
 
 <tr {{ $attributes }}>
-    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{{ $player->name }}</td>
+    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">
+        <a href="/players/{{ $player->id }}">{{ $player->name }}</a>
+    </td>
     <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{{ $team->name }}</td>
     <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right">{{ $stat->plate_attempts }}</td>
     <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right">{{ $stat->at_bats }}</td>

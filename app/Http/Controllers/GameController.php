@@ -64,7 +64,7 @@ class GameController extends Controller
 
     public function update(Request $request, Game $game)
     {
-        $gameUpdated = $request->validate([
+        $validated = $request->validate([
             'date'=> 'required',
             'location'=> 'required',
             'umpire'=> 'required',
@@ -72,7 +72,7 @@ class GameController extends Controller
             'opponent'=> 'required',
         ]);
 
-        $game->update($gameUpdated);
+        $game->update($validated);
         return redirect('/games');
     }
 

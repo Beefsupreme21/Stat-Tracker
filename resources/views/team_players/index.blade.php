@@ -1,7 +1,7 @@
 <x-layout>
 
     <div class="w-4/5 m-auto mb-12">
-        <a href="/teams/{{ $team->name }}" class="text-xl hover:underline">Back to team page</a>
+        <a href="/teams/{{ $team->id }}" class="text-xl hover:underline">Back to team page</a>
 
         <div class="text-center text-4xl">
             <p>Edit {{ $team->name }} Roster</p>
@@ -20,14 +20,14 @@
 
                 <tr class="border border-gray-600">
                     <td class="p-4">
-                        <a href="/players/{{ $player->name }}">
+                        <a href="/players/{{ $player->id }}">
                             <button class="text-blue-500 hover:underline pr-3">
                                 {{ $player->name }}
                             </button>
                         </a>
                     </td>
                     <td>
-                        <form method="POST" action="/teams/{{ $team->name }}/players/{{ $player->name }}">
+                        <form method="POST" action="/teams/{{ $team->id }}/players/{{ $player->id }}">
                             @csrf
                             @method('DELETE')
                             <button class="text-red-500 hover:underline">

@@ -1,7 +1,7 @@
 <x-layout>
     <h1>Edit Team</h1>
     <div>
-        <form action="/teams/{{ $team->name }}" method="POST">
+        <form action="/teams/{{ $team->id }}" method="POST">
             @csrf
             @method('PUT')
             <span>Team Name</span>

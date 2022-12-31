@@ -31,6 +31,4 @@
     <hr>
     <a href="/stats/create?game_id={{ $game->id }}&team_id={{ $game->team_id }}">Add stats</a>
     <x-statlist :stats="$game->stats" />
-
-
 </x-layout>

@@ -4,21 +4,21 @@
             <div class="grid grid-cols-1 gap-4 lg:col-span-3">
                 <div class="overflow-hidden rounded-lg bg-white shadow">
                     <div class="bg-white p-6 mt-4 text-center sm:mt-0 sm:pt-1">
-                        <p class="text-xl font-bold text-gray-900 sm:text-4xl">{{ $team->name }}</p>
+                        <h1 class="text-xl font-bold text-gray-900 sm:text-4xl">{{ $team->name }}</h1>
                     </div>
                     <div class="grid grid-cols-1 divide-y divide-gray-200 border-t border-gray-200 bg-gray-50 sm:grid-cols-3 sm:divide-y-0 sm:divide-x">
                         <div class="px-6 py-5 text-center text-sm font-medium">
-                            <a href="/teams/{{ $team->name }}/players">
+                            <a href="/teams/{{ $team->id }}/players">
                                 <span class="text-gray-900">View/Edit Roster</span>
                             </a>
                         </div>
                         <div class="px-6 py-5 text-center text-sm font-medium">
-                            <a href="/teams/{{ $team->name }}/edit">
+                            <a href="/teams/{{ $team->id }}/edit">
                                 <span class="text-gray-900">Edit Team Name</span>
                             </a>
                         </div>
                         <div class="px-6 py-5 text-center text-sm font-medium">
-                            <form method="POST" action="/teams/{{ $team->name }}">
+                            <form method="POST" action="/teams/{{ $team->id }}">
                                 @csrf
                                 @method('DELETE')
                                 <button class="text-red-500 hover:underline">
@@ -31,7 +31,7 @@
 
                 <div class="mt-8 -my-2 -mx-4 overflow-x-auto sm:-mx-6 md:px-6 lg:px-8 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle">
-                        <h1 class="text-xl font-semibold text-gray-900 mb-2">Total Stats</h1>
+                        <h2 class="text-xl font-semibold text-gray-900 mb-2">Total Stats</h2>
                         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
                             <x-statlist :stats="$stats" class="min-w-full divide-y divide-gray-300 rounded-lg" />
                         </div>
@@ -59,10 +59,9 @@
                                     <tbody class="divide-y divide-gray-200 bg-white">
                                         @foreach ($season->games as $game)
                                             <tr>
-                                                <td scope="col" class="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">{{ date('M d, y', strtotime( $game->date )) }}</td>
-                                                <td scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">{{ date('g:i a', strtotime( $game->date )) }}</td>
-                                                <td scope="col" class="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">{{ $game->outcome }}</td>
-                                                <td scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">{{ $game->opponent }}</td>
+                                                <td scope="col" class="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">{{ date('M d, y', strtotime( $game->date )) }} - {{ date('g:i a', strtotime( $game->date )) }}</td>
+                                                <td scope="col" class="whitespace-nowrap capitalize py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">{{ $game->opponent }}</td>
+                                                <td scope="col" class="whitespace-nowrap capitalize px-2 py-3.5 text-left text-sm font-semibold text-gray-900">{{ $game->outcome }}</td>
                                                 <td scope="col" class="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
                                                     <a href="/games/{{ $game->id }}">View Game</a>
                                                 </td>
@@ -79,7 +78,7 @@
             <div class="grid grid-cols-1 gap-4">
                 <div class="mt-8 -my-2 -mx-4 overflow-x-hidden sm:-mx-6 md:px-6 lg:px-8 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle">
-                        <h1 class="text-xl font-semibold text-gray-900 mb-2">Roster</h1>
+                        <h2 class="text-xl font-semibold text-gray-900 mb-2">Roster</h2>
                         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
                             <div class="flow-root">
                                 <ul role="list" class="p-4">

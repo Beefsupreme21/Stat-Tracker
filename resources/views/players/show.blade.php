@@ -10,12 +10,12 @@
                                     <img class="mx-auto h-20 w-20 rounded-full" src="{{ asset('images/default_profile.png' )}}" alt="Profile picture">
                                 </div>
                                 <div class="mt-4 text-center sm:mt-0 sm:pt-1 sm:text-left">
-                                    <p class="text-xl font-bold text-gray-900 sm:text-2xl">{{ $player->name }}</p>
+                                    <h1 class="text-xl font-bold text-gray-900 sm:text-2xl">{{ $player->name }}</h1>
                                     @if ($player->teams->count() == 0)
                                         <p class="text-sm font-medium text-gray-600">This player isn't assigned to any teams</p>
                                     @else
                                         @foreach ($player->teams as $team) 
-                                            <a href="/teams/{{ $team->name }}">
+                                            <a href="/teams/{{ $team->id }}">
                                                 <p class="text-sm font-medium text-gray-600">{{ $team->name }}</p>
                                             </a>
                                         @endforeach
@@ -27,17 +27,17 @@
                     </div>
                     <div class="grid grid-cols-1 divide-y divide-gray-200 border-t border-gray-200 bg-gray-50 sm:grid-cols-3 sm:divide-y-0 sm:divide-x">
                         <div class="px-6 py-5 text-center text-sm font-medium">
-                            <a href="/players/{{ $player->name }}/edit">
+                            <a href="/players/{{ $player->id }}/edit">
                                 <span class="text-gray-900">Edit Player Details</span>
                             </a>
                         </div>
                             <div class="px-6 py-5 text-center text-sm font-medium">
-                            <a href="/players/{{ $player->name }}/teams">
+                            <a href="/players/{{ $player->id }}/teams">
                                 <span class="text-gray-900">Edit Teams</span>
                             </a>
                         </div>
                         <div class="px-6 py-5 text-center text-sm font-medium">
-                            <form method="POST" action="/players/{{ $player->name }}">
+                            <form method="POST" action="/players/{{ $player->id }}">
                                 @csrf
                                 @method('DELETE')
                                 <button class="text-red-500 hover:underline">
@@ -50,7 +50,7 @@
 
                 <div class="mt-8 -my-2 -mx-4 overflow-x-auto sm:-mx-6 md:px-6 lg:px-8 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle">
-                        <h1 class="text-xl font-semibold text-gray-900">Recent Games</h1>
+                        <h2 class="text-xl font-semibold text-gray-900 mb-2">Recent Games</h2>
                         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
                             <table class="min-w-full divide-y divide-gray-300">
                                 <thead class="bg-gray-200">
@@ -78,7 +78,11 @@
                                     @foreach ($player->stats as $stat) 
                                         <tr>
                                             <td class="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-6">{{ date('M d, y', strtotime( $stat->game->date )) }}</td>
-                                            <td class="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">{{ $stat->team->name }}</td>
+                                            
+                                                <td class="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
+                                                    <a href="/teams/{{ $stat->team->id }}">{{ $stat->team->name }}</a>
+                                                </td>
+                                            
                                             <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-900">{{ $stat->at_bats }}</td>
                                             <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{{ $stat->runs }}</td>
                                             <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{{ $stat->hits }}</td>

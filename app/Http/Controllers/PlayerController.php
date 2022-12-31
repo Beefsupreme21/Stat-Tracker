@@ -59,82 +59,17 @@ class PlayerController extends Controller
 
     public function update(Request $request, Player $player)
     {
-        $playerUpdated = $request->validate([
+        $validated = $request->validate([
             'name'=> 'required'
         ]);
 
-        $player->update($playerUpdated);
-        return redirect('/players');
+        $player->update($validated);
+        return redirect('/players'.'/'.$player->id);
     }
 
     public function destroy(Player $player)
     {
         $player->delete();
         return back();
-    }
-
-
-
-
-    public function test()
-    {
-        $players= Player::all();
-
-        return view('test', [
-            'players' => $players
-        ]);
-    }
-
-    public function one()
-    {
-        $players= Player::all();
-
-        $filtered = $players->filter(function($item) {
-            return strlen($item['name']) > 7;
-        });
-
-        return $filtered;
-    }
-
-    public function two()
-    {
-        $players = Player::all();
-
-        $plucked = $players->pluck('id');
-
-        return $plucked;
-    }
-
-    public function three()
-    {
-        $players = Player::all();
-
-        $contains = $players->contains( function($player) {
-            return substr($player['name'], 0, 1) == 'A';
-        });
-
-        return $contains;
-    }
-
-    // Partition, like using filter but you also get a collection of the items that were filtered out
-    public function four()
-    {
-        $players = Player::all();
-
-        [$aboveFive, $underFive] = $players->partition(function($player) {
-            return strlen($player['name']) > 5;
-        });
-
-        return $underFive;
-    }
-
-    // Chunk
-    public function five()
-    {
-        $players = Player::all();
-
-        $chunks = $players->chunk(4);
-
-        return $chunks;
     }
 }
