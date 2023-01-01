@@ -57,7 +57,7 @@
                                         <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-sm font-semibold text-gray-900" colspan="5">{{ $season->year }} - {{ $season->name }}</th>
                                     </tr>
                                     <tbody class="divide-y divide-gray-200 bg-white">
-                                        @foreach ($season->games as $game)
+                                        @foreach ($season->games->sortByDesc('date') as $game)
                                             <tr>
                                                 <td scope="col" class="whitespace-nowrap py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">{{ date('M d, y', strtotime( $game->date )) }} - {{ date('g:i a', strtotime( $game->date )) }}</td>
                                                 <td scope="col" class="whitespace-nowrap capitalize py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">{{ $game->opponent }}</td>
@@ -82,7 +82,7 @@
                         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
                             <div class="flow-root">
                                 <ul role="list" class="p-4">
-                                    @foreach ($team->players as $player)
+                                    @foreach ($team->players->sortBy('name') as $player)
                                         <li class="py-4">
                                             <div class="flex items-center space-x-4">
                                             <div class="flex-shrink-0">
