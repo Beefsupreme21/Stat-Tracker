@@ -9,7 +9,7 @@ class TeamController extends Controller
 {
     public function index()
     {
-        $teams =  Team::with('games', 'players')->get();
+        $teams =  Team::with('players')->get();
 
         return view('teams.index', [
             'teams' => $teams, 
@@ -23,11 +23,11 @@ class TeamController extends Controller
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $team = $request->validate([
             'name'=> 'required'
         ]);
 
-        Team::create($validated);
+        Team::create($team);
         return redirect('/teams');
     }
 
@@ -45,22 +45,24 @@ class TeamController extends Controller
         $playerCareerStats = $team->stats->groupBy('player_id');
 
         $stats = [];
-        foreach ($playerCareerStats as $player) {
+        foreach ($playerCareerStats as $game) {
             $stats[] = (object) [
-                'player' => $player[0]->player,
-                'team' => $player[0]->team,
-                'plate_attempts' => $player->sum('plate_attempts'),
-                'at_bats' => $player->sum('at_bats'),
-                'runs' => $player->sum('runs'),
-                'hits' => $player->sum('hits'),
-                'doubles' => $player->sum('doubles'),
-                'triples' => $player->sum('triples'),
-                'home_runs' => $player->sum('home_runs'),
-                'runs_batted_in' => $player->sum('runs_batted_in'),
-                'base_on_balls' => $player->sum('base_on_balls'),
-                'strike_outs' => $player->sum('strike_outs'),
-                'sacrifices' => $player->sum('sacrifices'),
-                'home_run_outs' => $player->sum('home_run_outs'),
+                'player' => $game[0]->player,
+                'team' => $game[0]->team,
+                'games_played' => $game->count(),
+                'plate_attempts' => $game->sum('plate_attempts'),
+                'at_bats' => $game->sum('at_bats'),
+                'runs' => $game->sum('runs'),
+                'hits' => $game->sum('hits'),
+                'doubles' => $game->sum('doubles'),
+                'triples' => $game->sum('triples'),
+                'home_runs' => $game->sum('home_runs'),
+                'runs_batted_in' => $game->sum('runs_batted_in'),
+                'base_on_balls' => $game->sum('base_on_balls'),
+                'strike_outs' => $game->sum('strike_outs'),
+                'sacrifices' => $game->sum('sacrifices'),
+                'home_run_outs' => $game->sum('home_run_outs'),
+                'taken_bases' => ($game->sum('hits') - $game->sum('doubles') - $game->sum('triples') - $game->sum('home_runs')) + ($game->sum('doubles') * 2) + ($game->sum('triples') * 3) + ($game->sum('home_runs') * 4),
             ];
         }
 
@@ -91,5 +93,6 @@ class TeamController extends Controller
     {
         $team->delete();
         return back();
+
     }
 }
