@@ -11,7 +11,7 @@
     <div class="grid grid-cols-1 mx-auto gap-4 md:w-4/5 lg:grid-cols-2 lg:gap-8">
         <div class="mt-8 overflow-x-hidden md:px-6 lg:px-8 lg:-mx-8">
             <div class="inline-block min-w-full py-2 align-middle">
-                <h2 class="text-xl font-semibold text-gray-900 mb-2">Team Name</h2>
+                <h2 class="text-xl font-semibold text-gray-900 mb-2">Players on {{ $team->name }}</h2>
                 <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
                     <div class="flow-root">
                         <ul role="list" class="p-4">
