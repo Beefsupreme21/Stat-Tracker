@@ -28,7 +28,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="mt-8 -my-2 -mx-4 overflow-x-auto sm:-mx-6 md:px-6 lg:px-8 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle">
                         <h2 class="text-xl font-semibold text-gray-900 mb-2">Total Stats</h2>
@@ -85,12 +84,12 @@
                                     @foreach ($team->players->sortBy('name') as $player)
                                         <li class="py-4">
                                             <div class="flex items-center space-x-4">
-                                            <div class="flex-shrink-0">
-                                                <img class="h-8 w-8 rounded-full" src="{{ asset('images/default_profile.png' )}}" alt="">
-                                            </div>
-                                            <div class="min-w-0">
-                                                <a href="/players/{{ $player->id }}" class="truncate text-sm font-medium text-gray-900">{{ $player->name }}</a>
-                                            </div>
+                                                <div class="flex-shrink-0">
+                                                    <img class="h-8 w-8 rounded-full" src="{{ asset('images/default_profile.png' )}}" alt="">
+                                                </div>
+                                                <div class="min-w-0">
+                                                    <a href="/players/{{ $player->id }}" class="truncate text-sm font-medium text-gray-900">{{ $player->name }}</a>
+                                                </div>
                                             </div>
                                         </li>
                                     @endforeach

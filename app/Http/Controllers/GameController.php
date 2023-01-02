@@ -48,7 +48,7 @@ class GameController extends Controller
 
     public function show(Game $game)
     {
-        $game->load('stats.team', 'stats.player');
+        $game->load('stats');
 
         return view('games.show', [
             'game' => $game
