@@ -11,7 +11,7 @@
                         <div class="sm:grid sm:grid-cols-2 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
                             <label class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Date</label>
                             <div class="mt-1 sm:col-span-1 sm:mt-0">
-                                <input type="datetime-local" name="date" value="{{ $game->date }}" class="block w-full max-w-lg rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm">
+                                <input type="datetime-local" name="date" value="{{ $game->date }}" step="1" class="block w-full max-w-lg rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm">
                             </div>
                         </div>
                         <div class="sm:grid sm:grid-cols-2 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">

@@ -34,11 +34,11 @@ class GameController extends Controller
             'team_id'=> 'required',
             'season_id'=> 'required',
             'date'=> 'required',
-            'location'=> 'required',
-            'opponent'=> 'required',
-            'weather'=> 'required',
-            'umpire'=> 'required',
-            'outcome'=> 'required',
+            'location'=> 'nullable',
+            'opponent'=> 'nullable',
+            'weather'=> 'nullable',
+            'umpire'=> 'nullable',
+            'outcome'=> 'nullable',
         ]);
 
         Game::create($validated);
@@ -66,10 +66,10 @@ class GameController extends Controller
     {
         $validated = $request->validate([
             'date'=> 'required',
-            'location'=> 'required',
-            'umpire'=> 'required',
-            'weather'=> 'required',
-            'opponent'=> 'required',
+            'location'=> 'nullable',
+            'umpire'=> 'nullable',
+            'weather'=> 'nullable',
+            'opponent'=> 'nullable',
         ]);
 
         $game->update($validated);
