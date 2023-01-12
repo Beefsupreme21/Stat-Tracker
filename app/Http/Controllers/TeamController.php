@@ -39,8 +39,11 @@ class TeamController extends Controller
             }, 
             'players', 
             'stats.team:id,name', 
-            'stats.player:id,name'
+            'stats.player:id,name',
+            'stats.game.season',
         ]);
+
+        $seasons = $team->seasons;
 
         $playerCareerStats = $team->stats->groupBy('player_id');
 
@@ -69,6 +72,7 @@ class TeamController extends Controller
         return view('teams.show', [
             'team' => $team,
             'stats' => $stats,
+            'seasons' => $seasons,
         ]);
     }
 

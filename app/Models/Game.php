@@ -20,6 +20,11 @@ class Game extends Model
         'outcome',
     ];
 
+    public function season()
+    {
+        return $this->belongsTo(Season::class);
+    }
+
     public function stats()
     {
         return $this->hasMany(Stat::class);

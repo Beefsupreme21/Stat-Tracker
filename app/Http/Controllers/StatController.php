@@ -24,11 +24,7 @@ class StatController extends Controller
 
     public function create()
     {
-        $team = Team::with('players')->find(request('team_id'));
-        
-        if (!$team) {
-            return back();
-        }
+        $team = Team::with('players')->findOrFail(request('team_id'));
 
         return view('stats.create', [
             'team' => $team
@@ -42,22 +38,22 @@ class StatController extends Controller
             'player_id' => 'required',
             'team_id' => 'required',
             'plate_attempts' => 'required',
-            'at_bats' => 'required',
-            'runs' => 'required',
-            'hits' => 'required',
-            'doubles' => 'required',
-            'triples' => 'required',
-            'home_runs' => 'required',
-            'runs_batted_in' => 'required',
-            'base_on_balls' => 'required',
-            'strike_outs' => 'required',
-            'sacrifices' => 'required',
-            'home_run_outs' => 'required',
+            'at_bats' => 'nullable',
+            'runs' => 'nullable',
+            'hits' => 'nullable',
+            'doubles' => 'nullable',
+            'triples' => 'nullable',
+            'home_runs' => 'nullable',
+            'runs_batted_in' => 'nullable',
+            'base_on_balls' => 'nullable',
+            'strike_outs' => 'nullable',
+            'sacrifices' => 'nullable',
+            'home_run_outs' => 'nullable',
         ]);
 
         Stat::create($validated);
 
-        return redirect("/games/{$validated['game_id']}");
+        return redirect("/stats/create?game_id={$validated['game_id']}&team_id={$validated['team_id']}");
     }
 
     public function show(Stat $stat)
@@ -78,20 +74,21 @@ class StatController extends Controller
     {
         $validated = $request->validate([
             'plate_attempts' => 'required',
-            'at_bats' => 'required',
-            'runs' => 'required',
-            'hits' => 'required',
-            'doubles' => 'required',
-            'triples' => 'required',
-            'home_runs' => 'required',
-            'runs_batted_in' => 'required',
-            'base_on_balls' => 'required',
-            'strike_outs' => 'required',
-            'sacrifices' => 'required',
-            'home_run_outs' => 'required',
+            'at_bats' => 'nullable',
+            'runs' => 'nullable',
+            'hits' => 'nullable',
+            'doubles' => 'nullable',
+            'triples' => 'nullable',
+            'home_runs' => 'nullable',
+            'runs_batted_in' => 'nullable',
+            'base_on_balls' => 'nullable',
+            'strike_outs' => 'nullable',
+            'sacrifices' => 'nullable',
+            'home_run_outs' => 'nullable',
         ]);
 
         $stat->update($validated);
+
         return redirect('/stats');
     }
 

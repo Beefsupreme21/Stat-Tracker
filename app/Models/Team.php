@@ -30,6 +30,7 @@ class Team extends Model
 
     public function players()
     {
-        return $this->belongsToMany(Player::class);
+        return $this->belongsToMany(Player::class)
+            ->orderBy('name');
     }
 }

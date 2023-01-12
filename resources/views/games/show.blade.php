@@ -43,7 +43,8 @@
                             <h2 class="text-xl font-semibold text-gray-900 mb-2">Game Stats</h2>
                             <a href="/stats/create?game_id={{ $game->id }}&team_id={{ $game->team_id }}">Add new stat</a>
                         </div>
-                        <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">                            
+                        <x-statlist :stats="$game->stats" />
+                        {{-- <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">                            
                             <table class="min-w-full">
                                 <thead class="bg-gray-200 min-w-full divide-y divide-gray-300"> 
                                     <tr>
@@ -92,7 +93,7 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

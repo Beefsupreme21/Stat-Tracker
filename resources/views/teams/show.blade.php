@@ -32,7 +32,7 @@
                     <div class="inline-block min-w-full py-2 align-middle">
                         <h2 class="text-xl font-semibold text-gray-900 mb-2">Total Stats</h2>
                         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-                            <x-statlist :stats="$stats" class="min-w-full divide-y divide-gray-300 rounded-lg" />
+                            <x-statlist :stats="$stats" :seasons="$seasons" class="min-w-full divide-y divide-gray-300 rounded-lg" />
                         </div>
                     </div>
                 </div>

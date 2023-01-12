@@ -48,7 +48,28 @@ class GameController extends Controller
 
     public function show(Game $game)
     {
-        $game->load('stats');
+        $game->load('stats.player', 'stats.team');
+
+        $game->stats = $game->stats->map(function ($stat) {
+            return (object) [
+                'player' => $stat->player,
+                'team' => $stat->team,
+                'games_played' => 1,
+                'plate_attempts' => $stat->plate_attempts,
+                'at_bats' => $stat->at_bats,
+                'runs' => $stat->runs,
+                'hits' => $stat->hits,
+                'doubles' => $stat->doubles,
+                'triples' => $stat->triples,
+                'home_runs' => $stat->home_runs,
+                'runs_batted_in' => $stat->runs_batted_in,
+                'base_on_balls' => $stat->base_on_balls,
+                'strike_outs' => $stat->strike_outs,
+                'sacrifices' => $stat->sacrifices,
+                'home_run_outs' => $stat->home_run_outs,
+                'taken_bases' => ($stat->hits - $stat->doubles - $stat->triples - $stat->home_runs) + ($stat->doubles * 2) + ($stat->triples * 3) + ($stat->home_runs * 4),
+            ];
+        });
 
         return view('games.show', [
             'game' => $game

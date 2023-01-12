@@ -1,5 +1,11 @@
-@props(['stats'])
+@props(['stats', 'seasons'])
 
+<div>
+    <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-0.5 text-sm font-medium text-gray-800">Career</span>
+    @foreach($seasons as $season)
+        <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-0.5 text-sm font-medium text-gray-800">{{ $season->year }} {{ $season->name }}</span>
+    @endforeach
+</div>
 <table {{ $attributes }}>
     <thead class="bg-gray-200 min-w-full divide-y divide-gray-300"> 
         <tr>
