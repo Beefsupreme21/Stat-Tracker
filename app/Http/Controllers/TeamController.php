@@ -48,24 +48,35 @@ class TeamController extends Controller
         $playerCareerStats = $team->stats->groupBy('player_id');
 
         $stats = [];
-        foreach ($playerCareerStats as $game) {
+        foreach ($playerCareerStats as $stat) {
+            $taken_bases = ($stat->sum('hits') - $stat->sum('doubles') - $stat->sum('triples') - $stat->sum('home_runs')) + ($stat->sum('doubles') * 2) + ($stat->sum('triples') * 3) + ($stat->sum('home_runs') * 4);
+            $avg = (int) (($stat->sum('hits') / $stat->sum('at_bats')) * 1000);
+            $obp = (int) ((($stat->sum('hits') + $stat->sum('base_on_balls')) / $stat->sum('plate_attempts')) * 1000);
+            $slg = (int) (($taken_bases / $stat->sum('at_bats')) * 1000);
+            $ops = (int) ((($stat->sum('hits') + $stat->sum('base_on_balls')) / $stat->sum('plate_attempts')) + ($taken_bases / $stat->sum('at_bats')) * 1000);
+
             $stats[] = (object) [
-                'player' => $game[0]->player,
-                'team' => $game[0]->team,
-                'games_played' => $game->count(),
-                'plate_attempts' => $game->sum('plate_attempts'),
-                'at_bats' => $game->sum('at_bats'),
-                'runs' => $game->sum('runs'),
-                'hits' => $game->sum('hits'),
-                'doubles' => $game->sum('doubles'),
-                'triples' => $game->sum('triples'),
-                'home_runs' => $game->sum('home_runs'),
-                'runs_batted_in' => $game->sum('runs_batted_in'),
-                'base_on_balls' => $game->sum('base_on_balls'),
-                'strike_outs' => $game->sum('strike_outs'),
-                'sacrifices' => $game->sum('sacrifices'),
-                'home_run_outs' => $game->sum('home_run_outs'),
-                'taken_bases' => ($game->sum('hits') - $game->sum('doubles') - $game->sum('triples') - $game->sum('home_runs')) + ($game->sum('doubles') * 2) + ($game->sum('triples') * 3) + ($game->sum('home_runs') * 4),
+                'player' => $stat[0]->player,
+                'team' => $stat[0]->team,
+                'seasons' => $stat->pluck('game.season_id')->unique()->values(),
+                'games_played' => $stat->count(),
+                'plate_attempts' => $stat->sum('plate_attempts'),
+                'at_bats' => $stat->sum('at_bats'),
+                'runs' => $stat->sum('runs'),
+                'hits' => $stat->sum('hits'),
+                'doubles' => $stat->sum('doubles'),
+                'triples' => $stat->sum('triples'),
+                'home_runs' => $stat->sum('home_runs'),
+                'runs_batted_in' => $stat->sum('runs_batted_in'),
+                'base_on_balls' => $stat->sum('base_on_balls'),
+                'strike_outs' => $stat->sum('strike_outs'),
+                'sacrifices' => $stat->sum('sacrifices'),
+                'home_run_outs' => $stat->sum('home_run_outs'),
+                'taken_bases' =>  $taken_bases,
+                'avg' => $avg,
+                'obp' => $obp,
+                'slg' => $slg,
+                'ops' => $ops,
             ];
         }
 

@@ -15,7 +15,9 @@
                                 <select name="player_id" class="block w-full max-w-lg rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:max-w-xs sm:text-sm">
                                     <option value=""></option>
                                     @foreach ($team->players as $player)
-                                        <option value="{{$player->id}}" @selected(old('player_id', 0) == $player->id)>{{$player->name}}</option>
+                                        @if (!$player->stats->count())
+                                            <option value="{{$player->id}}" @selected(old('player_id', 0) == $player->id)>{{$player->name}}</option>
+                                        @endif
                                     @endforeach       
                                 </select>
                             </div>
