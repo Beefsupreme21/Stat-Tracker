@@ -5,10 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Stat Tracker</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <script src="//unpkg.com/alpinejs" defer></script>
-        <link rel="stylesheet" href="">
-        <link rel="stylesheet" type="text/css" href="{{ asset('/style.css') }}" />
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
 
     <body>
@@ -23,6 +20,8 @@
         <footer>
             <x-footer />   
         </footer>
+
+        @stack('scripts')
     </body>
 </html>
 

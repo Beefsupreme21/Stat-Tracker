@@ -28,25 +28,23 @@
 </div>
 
 <script>
-    document.addEventListener('alpine:init', () => {
-        Alpine.data('teamSeasonInputs', () => ({
-            teams: @json($teams),
-            selectedTeamId: '',
-            selectedSeason: '',
+    Alpine.data('teamSeasonInputs', () => ({
+        teams: @json($teams),
+        selectedTeamId: '',
+        selectedSeason: '',
 
-            get teamSeasons() {
-                if (this.selectedTeamId) {
-                    const team = this.teams.find((team) => { 
-                        return team.id === parseInt(this.selectedTeamId);
-                    });
+        get teamSeasons() {
+            if (this.selectedTeamId) {
+                const team = this.teams.find((team) => { 
+                    return team.id === parseInt(this.selectedTeamId);
+                });
 
-                    if (team.seasons.length) {
-                        return team.seasons;
-                    }
+                if (team.seasons.length) {
+                    return team.seasons;
                 }
-                
-                return [];
-            },
-        }))
-    })
+            }
+            
+            return [];
+        },
+    }))
 </script>
