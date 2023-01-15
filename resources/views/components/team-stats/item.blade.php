@@ -1,28 +1,28 @@
 <tr x-data="teamStat(player)" {{ $attributes }}>
-    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">
+    <td class="whitespace-nowrap pl-4 pr-3 py-2 text-sm text-gray-500 sm:pl-6">
         <a :href="`/players/${player.id}`" x-text="player.name"></a>
     </td>
     <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">
         <a :href="`/teams/${team.id}`" x-text="team.name"></a>
     </td>
-    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right" x-text="totalGamesPlayed"></td>
-    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right" x-text="totalPlateAttempts"></td>
-    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right" x-text="totalAtBats"></td>
-    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right" x-text="totalRuns"></td>
-    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right" x-text="totalHits"></td>
-    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right" x-text="totalDoubles"></td>
-    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right" x-text="totalTriples"></td>
-    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right" x-text="totalHomeRuns"></td>
-    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right" x-text="totalRunsBattedIn"></td>
-    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right" x-text="totalBaseOnBalls"></td>
-    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right" x-text="totalStrikeOuts"></td>
-    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right" x-text="totalSacrifices"></td>
-    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right" x-text="totalHomeRunOuts"></td>
-    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right" x-text="totalTakenBases"></td>
-    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right" x-text="totalAvg"></td>
-    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right" x-text="totalObp"></td>
-    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right" x-text="totalSlg"></td>
-    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right" x-text="totalOps"></td>
+    <td class="px-2 py-2 text-sm text-gray-500 text-right" x-text="totalGamesPlayed"></td>
+    <td class="px-2 py-2 text-sm text-gray-500 text-right" x-text="totalPlateAttempts"></td>
+    <td class="px-2 py-2 text-sm text-gray-500 text-right" x-text="totalAtBats"></td>
+    <td class="px-2 py-2 text-sm text-gray-500 text-right" x-text="totalRuns"></td>
+    <td class="px-2 py-2 text-sm text-gray-500 text-right" x-text="totalHits"></td>
+    <td class="px-2 py-2 text-sm text-gray-500 text-right" x-text="totalDoubles"></td>
+    <td class="px-2 py-2 text-sm text-gray-500 text-right" x-text="totalTriples"></td>
+    <td class="px-2 py-2 text-sm text-gray-500 text-right" x-text="totalHomeRuns"></td>
+    <td class="px-2 py-2 text-sm text-gray-500 text-right" x-text="totalRunsBattedIn"></td>
+    <td class="px-2 py-2 text-sm text-gray-500 text-right" x-text="totalBaseOnBalls"></td>
+    <td class="px-2 py-2 text-sm text-gray-500 text-right" x-text="totalStrikeOuts"></td>
+    <td class="px-2 py-2 text-sm text-gray-500 text-right" x-text="totalSacrifices"></td>
+    <td class="px-2 py-2 text-sm text-gray-500 text-right" x-text="totalHomeRunOuts"></td>
+    <td class="px-2 py-2 text-sm text-gray-500 text-right" x-text="totalTakenBases"></td>
+    <td class="px-2 py-2 text-sm text-gray-500 text-right" x-text="totalAvg"></td>
+    <td class="px-2 py-2 text-sm text-gray-500 text-right" x-text="totalObp"></td>
+    <td class="px-2 py-2 text-sm text-gray-500 text-right" x-text="totalSlg"></td>
+    <td class="py-3.5 pl-3 pr-4 sm:pr-6 text-sm text-gray-500 text-right" x-text="totalOps"></td>
 </tr>
 
 @push('scripts')
