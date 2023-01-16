@@ -42,11 +42,11 @@
                             <label class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Win/Loss</label>
                             <div class="mt-1 sm:col-span-1 sm:mt-0">
                                 <div class="flex items-center">
-                                    <input type="radio" class="mr-2" id="win" name="outcome" value="win" {{ old('outcome') == 'win' ? 'checked' : '' }}>
+                                    <input type="radio" class="mr-2" id="win" name="outcome" value="win" {{ $game->outcome == 'win' ? 'checked' : '' }}>
                                     <label for="win">Win</label>
                                 </div>
                                 <div class="flex items-center mt-2">
-                                    <input type="radio" class="mr-2" id="loss" name="outcome" value="lose" {{ old('outcome') == 'lose' ? 'checked' : '' }}>
+                                    <input type="radio" class="mr-2" id="loss" name="outcome" value="lose" {{ $game->outcome == 'lose' ? 'checked' : '' }}>
                                     <label for="loss">Loss</label>
                                 </div>
                             </div>

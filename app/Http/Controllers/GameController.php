@@ -91,15 +91,18 @@ class GameController extends Controller
             'umpire'=> 'nullable',
             'weather'=> 'nullable',
             'opponent'=> 'nullable',
+            'outcome'=> 'nullable',
         ]);
 
         $game->update($validated);
-        return redirect('/games');
+
+        return redirect('/games/' . $game->id);
     }
 
     public function destroy(Game $game)
     {
         $game->delete();
+
         return back();
     }
 }

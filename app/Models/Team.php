@@ -25,7 +25,7 @@ class Team extends Model
 
     public function seasons()
     {
-        return $this->belongsToMany(Season::class);
+        return $this->belongsToMany(Season::class)->latest();
     }
 
     public function players()
