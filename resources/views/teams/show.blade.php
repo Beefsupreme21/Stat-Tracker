@@ -28,7 +28,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-8 -my-2 -mx-4 overflow-x-auto sm:-mx-6 md:px-6 lg:px-8 lg:-mx-8">
+                <div>
                     <h2 class="text-xl font-semibold text-gray-900 mb-2">Total Stats</h2>
                     <x-team-stats :$team class="min-w-full divide-y divide-gray-300 rounded-lg" />
                 </div>
