@@ -73,21 +73,26 @@
             <div class="grid grid-cols-1 gap-4">
                 <div class="mt-8 -my-2 -mx-4 overflow-x-hidden sm:-mx-6 md:px-6 lg:px-8 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle">
-                        <h2 class="text-xl font-semibold text-gray-900 mb-2">Roster</h2>
+                        <div class="flex items-center justify-between">
+                            <h2 class="text-xl font-semibold text-gray-900 mb-2">Roster</h2>
+                            <a href="/teams/{{ $team->id }}/players">Adjust</a>
+                        </div>
                         <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
                             <div class="flow-root">
                                 <ul role="list" class="p-4">
                                     @foreach ($team->players->sortBy('name') as $player)
-                                        <li class="py-4">
-                                            <div class="flex items-center space-x-4">
-                                                <div class="flex-shrink-0">
-                                                    <img class="h-8 w-8 rounded-full" src="{{ asset('images/default_profile.png' )}}" alt="">
+                                        @if ($player->pivot->role === 'active')
+                                            <li class="py-4">
+                                                <div class="flex items-center space-x-4">
+                                                    <div class="flex-shrink-0">
+                                                        <img class="h-8 w-8 rounded-full" src="{{ asset('images/default_profile.png' )}}" alt="">
+                                                    </div>
+                                                    <div class="min-w-0">
+                                                        <a href="/players/{{ $player->id }}" class="truncate text-sm font-medium text-gray-900">{{ $player->name }}</a>
+                                                    </div>
                                                 </div>
-                                                <div class="min-w-0">
-                                                    <a href="/players/{{ $player->id }}" class="truncate text-sm font-medium text-gray-900">{{ $player->name }}</a>
-                                                </div>
-                                            </div>
-                                        </li>
+                                            </li>
+                                        @endif
                                     @endforeach
                                     <li class="py-4">
                                         <div class="flex items-center space-x-4">

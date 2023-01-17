@@ -4,7 +4,8 @@
             <h1 class="text-2xl font-bold leading-7 text-gray-900 ml-3 sm:truncate sm:text-3xl sm:tracking-tight">{{ $team->name }} Players</h1>
         </div>
         <div class="mt-4 flex md:mt-0 md:ml-4">
-            <a href="/teams/{{ $team->id }}" class="ml-3 inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Back to teams page</a>
+            <a href="/teams/{{ $team->id }}" class="rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Cancel</a>
+            <a href="/players/create?team_id={{ $team->id }}" class="ml-3 inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add Player</a>
         </div>
     </div>
 
@@ -20,7 +21,7 @@
                                     <div class="flex items-center space-x-4">
                                         <div class="min-w-0 flex-1">
                                             <a href="/players/{{ $player->id }}">
-                                                <p class="truncate text-sm font-medium text-gray-900">{{ $player->name }}</p>
+                                                <p class="truncate text-sm font-medium text-gray-900">{{ $player->name }} - <span class="text-xs">{{ $player->pivot->role }}</span></p>
                                             </a>
                                         </div>
                                         <div>
@@ -59,7 +60,16 @@
                                             <form action="/teams/{{ $team->id }}/players" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="player_id" value="{{ $player->id }}">
-                                                <button type="submit">Add</button>
+                                                <label for="role" class="sr-only">Role</label>
+                                                <div class="flex items-center rounded-md shadow-sm space-x-2">
+                                                    <select id="role" name="role" class="rounded-md border-transparent bg-transparent p-0 text-gray-700 sm:text-sm">
+                                                        <option value="active">Active</option>
+                                                        <option value="sub">Sub</option>
+                                                        <option balue="inactive">Inactive</option>
+                                                    </select>
+                                                    <input type="submit" value="Add" class="sm:text-sm">
+                                                </div>
+                                                {{-- <button type="submit">Add</button> --}}
                                             </form>
                                         </div>
                                     </div>

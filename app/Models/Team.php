@@ -13,14 +13,17 @@ class Team extends Model
         'name',
     ];
 
-    public function stats()
-    {
-        return $this->hasMany(Stat::class);
-    }
-
     public function games()
     {
         return $this->hasMany(Game::class);
+    }
+
+    public function players()
+    {
+        return $this->belongsToMany(Player::class)
+            ->withPivot('role')
+            ->orderBy('player_team.role')
+            ->orderBy('name');
     }
 
     public function seasons()
@@ -28,9 +31,8 @@ class Team extends Model
         return $this->belongsToMany(Season::class)->latest();
     }
 
-    public function players()
+    public function stats()
     {
-        return $this->belongsToMany(Player::class)
-            ->orderBy('name');
+        return $this->hasMany(Stat::class);
     }
 }

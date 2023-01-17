@@ -36,7 +36,7 @@ class PlayerController extends Controller
         Player::create($validated);
 
         if (request('team_id')) {
-            return redirect('/teams/'.request('team_id').'/players');
+            return redirect('/teams/' . request('team_id') . '/players');
         }
 
         return redirect('/players');

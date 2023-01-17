@@ -10,11 +10,13 @@ class TeamPlayerController extends Controller
 {
     public function index(Team $team) 
     {
-        $players = Player::with('teams:id')->get();
-
-        $players = $players->filter(function ($player) use ($team) {
-            return !$player->teams->contains('id', $team->id);
-        });
+        $players = Player::query()
+            ->with('teams:id')
+            ->whereDoesntHave('teams', function ($query) use ($team) {
+                $query->where('id', $team->id);
+            })
+            ->orderBy('name')
+            ->get();
 
         $team = $team->load('players');
 
@@ -25,8 +27,8 @@ class TeamPlayerController extends Controller
     }
 
     public function store(Team $team)
-    {  
-        $team->players()->attach(request('player_id'));
+    {
+        $team->players()->attach(request('player_id'), ['role' => request('role')]);
         
         return back();
     }
