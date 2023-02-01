@@ -28,10 +28,10 @@
 </div>
 
 <script>
+document.addEventListener('alpine:init', () => {
     Alpine.data('teamSeasonInputs', () => ({
         teams: @json($teams),
         selectedTeamId: '',
-        selectedSeason: '',
 
         get teamSeasons() {
             if (this.selectedTeamId) {
@@ -47,4 +47,5 @@
             return [];
         },
     }))
+});
 </script>
