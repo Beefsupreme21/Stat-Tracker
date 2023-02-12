@@ -48,8 +48,6 @@
                     </div>
                 </div>
                 <x-career-stats :$player class="min-w-full divide-y divide-gray-300 rounded-lg" />
-                <x-career-stats-by-year :$player class="min-w-full divide-y divide-gray-300 rounded-lg" />
-
                 <div class="mt-8 -my-2 -mx-4 overflow-x-auto sm:-mx-6 md:px-6 lg:px-8 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle">
                         <h2 class="text-xl font-semibold text-gray-900 mb-2">Recent Games</h2>
