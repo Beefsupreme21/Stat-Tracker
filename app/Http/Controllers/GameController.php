@@ -41,9 +41,9 @@ class GameController extends Controller
             'outcome'=> 'nullable',
         ]);
 
-        Game::create($validated);
+        $game = Game::create($validated);
 
-        return redirect('/stats/create?team_id='.$validated['team_id'].'&season_id='.$validated['season_id']);
+        return redirect('/stats/create?game_id=' . $game->id . '&team_id=' . $validated['team_id']);
     }
 
     public function show(Game $game)

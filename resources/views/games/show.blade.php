@@ -13,10 +13,15 @@
                         </h1>
                         <p class="text-lg text-gray-900">Played on {{ date('M d, y', strtotime( $game->date )) }} </p>
                     </div>
-                    <div class="grid grid-cols-1 divide-y divide-gray-200 border-t border-gray-200 bg-gray-50 sm:grid-cols-2 sm:divide-y-0 sm:divide-x">
+                    <div class="grid grid-cols-1 divide-y divide-gray-200 border-t border-gray-200 bg-gray-50 sm:grid-cols-3 sm:divide-y-0 sm:divide-x">
                         <div class="px-6 py-5 text-center text-sm font-medium">
                             <a href="/games/{{ $game->id }}/edit">
                                 <span class="text-gray-900">Edit Game</span>
+                            </a>
+                        </div>
+                        <div class="px-6 py-5 text-center text-sm font-medium">
+                            <a href="/teams/{{ $game->team->id }}">
+                                <span class="text-gray-900">View Team</span>
                             </a>
                         </div>
                         <div class="px-6 py-5 text-center text-sm font-medium">
@@ -24,7 +29,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button class="text-red-500 hover:underline">
-                                    Delete Team
+                                    Delete Game
                                 </button>
                             </form>
                         </div>
@@ -92,6 +97,11 @@
                     <div class="flex items-center justify-between">
                         <h2 class="text-xl font-semibold text-gray-900 mb-2">Game Stats</h2>
                         <a href="/stats/create?game_id={{ $game->id }}&team_id={{ $game->team_id }}">Add new stat</a>
+                    </div>
+                    <div class="flex justify-between">
+                        <div>{{ $game->date->format('n.j.y @ g:i a');  }}</div>
+                        <div>{{ $game->location }}</div>
+                        <div>{{ $game->opponent }}</div>
                     </div>
                     <x-statlist :stats="$game->stats" />
                 </div>

@@ -3,13 +3,13 @@
     'seasons' => [],
 ])
 
-<div>
+{{-- <div>
     <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-0.5 text-sm font-medium text-gray-800">Career</span>
     @foreach($seasons as $season)
         <span class="inline-flex items-center rounded-full bg-gray-100 px-3 py-0.5 text-sm font-medium text-gray-800">{{ $season->year }} {{ $season->name }}</span>
     @endforeach
-</div>
-<table {{ $attributes }}>
+</div> --}}
+<table {{ $attributes }} class="w-full">
     <thead class="bg-gray-200 min-w-full divide-y divide-gray-300"> 
         <tr>
             <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-left text-sm font-semibold text-gray-900">Player</th>

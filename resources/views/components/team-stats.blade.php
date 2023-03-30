@@ -337,10 +337,10 @@
                         const sacrifices = player.stats.reduce((a, b) => a + b.sacrifices, 0);
                         const home_run_outs = player.stats.reduce((a, b) => a + b.home_run_outs, 0);
                         const taken_bases = (hits - doubles - triples - home_runs) + (doubles * 2 + triples * 3 + home_runs * 4);
-                        const avg = Number.parseFloat(hits / at_bats).toFixed(3);
+                        const avg = at_bats ? Number.parseFloat(hits / at_bats).toFixed(3) : '0.000';
                         const obp = Number.parseFloat((hits + base_on_balls) / plate_attempts).toFixed(3);
-                        const slg = Number.parseFloat(taken_bases / at_bats).toFixed(3);
-                        const ops = Number.parseFloat((hits + base_on_balls) / plate_attempts + (taken_bases / at_bats)).toFixed(3);
+                        const slg = at_bats ? Number.parseFloat(taken_bases / at_bats).toFixed(3) : '0.000';
+                        const ops = at_bats ? Number.parseFloat((hits + base_on_balls) / plate_attempts + (taken_bases / at_bats)).toFixed(3) : Number.parseFloat((hits + base_on_balls) / plate_attempts).toFixed(3);
 
                         return {
                             id: player.id,
