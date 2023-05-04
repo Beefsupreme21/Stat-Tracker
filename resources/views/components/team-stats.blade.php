@@ -5,13 +5,34 @@
         <button @click="filteredSeason = 'All'" 
             :class="filteredSeason === 'All' ? 'bg-gray-200 text-gray-700' : 'text-gray-500 hover:text-gray-700'"
             class="px-3 py-2 font-medium text-sm rounded-md"
-            type="button">All</button>
-        <template x-for="season in team.seasons">
-            <button @click="filteredSeason = season.id" 
-                :class="filteredSeason === season.id ? 'bg-gray-200 text-gray-700' : 'text-gray-500 hover:text-gray-700'"
-                class="px-3 py-2 font-medium text-sm rounded-md"
-                type="button" x-text="`${season.year} ${season.name}`"></button>
-        </template>
+            type="button">
+            All
+        </button>
+        <div class="flex grow w-full justify-between items-center">
+            <div class="grow">
+                <template x-for="season in team.seasons">
+                    <button @click="filteredSeason = season.id" 
+                        :class="filteredSeason === season.id ? 'bg-gray-200 text-gray-700' : 'text-gray-500 hover:text-gray-700'"
+                        class="px-3 py-2 font-medium text-sm rounded-md"
+                        type="button" x-text="`${season.year} ${season.name}`"></button>
+                </template>
+            </div>
+            <div>
+                <select x-model="filteredMinGames" class="text-gray-700">
+                    <option value="0"></option>
+                    <option value="1">1 games min</option>
+                    <option value="2">2 games min</option>
+                    <option value="3">3 games min</option>
+                    <option value="4">4 games min</option>
+                    <option value="5">5 games min</option>
+                    <option value="6">6 games min</option>
+                    <option value="7">7 games min</option>
+                    <option value="8">8 games min</option>
+                    <option value="9">9 games min</option>
+                    <option value="10">10 games min</option>
+                </select>
+            </div>
+        </div>
     </div>
   
     <template x-if="results.length">
@@ -82,6 +103,19 @@
                                     </template>
                                 </span>
                                 OPS
+                            </button>
+                        </th>
+                        <th scope="col" class="py-2 px-1 text-right text-sm font-semibold text-gray-900">
+                            <button @click.prevent="sortBy('iso')" class="group inline-flex">
+                                <span :class="sortCol === 'iso' ? 'bg-gray-200 text-gray-900 group-hover:bg-gray-300': 'invisible text-gray-400 group-hover:visible group-focus:visible'" class="mr-1 flex-none rounded">
+                                    <template x-if="sortAsc">
+                                        <x-svg.chevron-down class="h-5 w-5" />
+                                    </template>
+                                    <template x-if="!sortAsc">
+                                        <x-svg.chevron-up class="h-5 w-5" />
+                                    </template>
+                                </span>
+                                ISO
                             </button>
                         </th>
                         <th scope="col" class="py-2 px-1 text-left text-sm font-semibold text-gray-900">
@@ -278,6 +312,7 @@
                             <td class="px-1 py-2 text-sm text-gray-500 text-right" x-text="player.totals.obp"></td>
                             <td class="px-1 py-2 text-sm text-gray-500 text-right" x-text="player.totals.slg"></td>
                             <td class="px-1 py-2 text-sm text-gray-500 text-right" x-text="player.totals.ops"></td>
+                            <td class="px-1 py-2 text-sm text-gray-500 text-right" x-text="player.totals.iso"></td>
                             <td class="px-1 py-2 text-sm text-gray-500 text-right" x-text="player.totals.games_played"></td>
                             <td class="px-1 py-2 text-sm text-gray-500 text-right" x-text="player.totals.plate_attempts"></td>
                             <td class="px-1 py-2 text-sm text-gray-500 text-right" x-text="player.totals.at_bats"></td>
@@ -306,6 +341,7 @@
             Alpine.data('teamStats', () => ({
                 filteredSeason: 'All',
                 team: @json($team),
+                filteredMinGames: 0,
                 sortCol: 'ops',
                 sortAsc: false,
 
@@ -320,6 +356,10 @@
                                 stats: player.stats.filter((stat) => stat.game.season.id === this.filteredSeason)
                             };
                         }).filter((player) => player.stats.length);
+                    }
+
+                    if (this.filteredMinGames) {
+                        players = players.filter((player) => player.stats.length >= this.filteredMinGames);
                     }
 
                     players = players.map((player) => {
@@ -341,6 +381,7 @@
                         const obp = Number.parseFloat((hits + base_on_balls) / plate_attempts).toFixed(3);
                         const slg = at_bats ? Number.parseFloat(taken_bases / at_bats).toFixed(3) : '0.000';
                         const ops = at_bats ? Number.parseFloat((hits + base_on_balls) / plate_attempts + (taken_bases / at_bats)).toFixed(3) : Number.parseFloat((hits + base_on_balls) / plate_attempts).toFixed(3);
+                        const iso = Number.parseFloat(slg - avg).toFixed(3);
 
                         return {
                             id: player.id,
@@ -364,6 +405,7 @@
                                 obp: obp,
                                 slg: slg,
                                 ops: ops,
+                                iso: iso,
                             },
                         };
                     });
@@ -376,7 +418,7 @@
                                 return 0;
                             }
 
-                            if (['avg','obp','slg','ops'].includes(this.sortCol)) {
+                            if (['avg','obp','slg','ops', 'iso'].includes(this.sortCol)) {
                                 if (this.sortAsc) {
                                     return (a.totals[this.sortCol] * 1000) - (b.totals[this.sortCol] * 1000);
                                 }

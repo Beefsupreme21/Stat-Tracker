@@ -43,4 +43,16 @@
             0.000
         @endif
     </td>
+    <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right">
+        @if ($stat->at_bats)
+            {{ number_format((float) 
+                    (($stat->taken_bases / $stat->at_bats)
+                    - 
+                    ($stat->hits / $stat->at_bats))
+                , 3, '.')
+            }}
+        @else
+            0.000
+        @endif
+    </td>
 </tr>
