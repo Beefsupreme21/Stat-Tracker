@@ -9,7 +9,7 @@ class TeamController extends Controller
 {
     public function index()
     {
-        $teams =  Team::with('players')->get();
+        $teams = Team::with('players', 'seasons', 'games')->get();
 
         return view('teams.index', [
             'teams' => $teams, 
