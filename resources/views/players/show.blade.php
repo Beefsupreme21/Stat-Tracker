@@ -95,7 +95,7 @@
                                             <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{{ number_format((float)$stat->hits / $stat->at_bats, 3, '.') }}</td>
                                             <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{{ number_format((float)($stat->hits + $stat->base_on_balls) / $stat->at_bats, 3, '.') }}</td>
                                             <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{{ number_format((float)$stat->hits / $stat->at_bats, 3, '.') }}</td>
-                                            <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{{ number_format((float)$stat->hits / $stat->at_bats, 3, '.') }}</td>
+                                            <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{{ number_format((float)$stat->hits + $stat->base_on_balls / $stat->plate_attempts + ($stat->taken_bases / $stat->at_bats), 3, '.') }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

@@ -9,12 +9,13 @@
             All
         </button>
         <div class="flex grow w-full justify-between items-center">
-            <div class="grow">
+            <div class="grow overflow-x-scroll">
                 <template x-for="season in team.seasons">
                     <button @click="filteredSeason = season.id" 
                         :class="filteredSeason === season.id ? 'bg-gray-200 text-gray-700' : 'text-gray-500 hover:text-gray-700'"
                         class="px-3 py-2 font-medium text-sm rounded-md"
-                        type="button" x-text="`${season.year} ${season.name}`"></button>
+                        type="button" x-text="`${season.year} ${season.name}`">
+                    </button>
                 </template>
             </div>
             <div>
@@ -116,6 +117,45 @@
                                     </template>
                                 </span>
                                 ISO
+                            </button>
+                        </th>
+                        <th scope="col" class="py-2 px-1 text-right text-sm font-semibold text-gray-900">
+                            <button @click.prevent="sortBy('rc')" class="group inline-flex">
+                                <span :class="sortCol === 'rc' ? 'bg-gray-200 text-gray-900 group-hover:bg-gray-300': 'invisible text-gray-400 group-hover:visible group-focus:visible'" class="mr-1 flex-none rounded">
+                                    <template x-if="sortAsc">
+                                        <x-svg.chevron-down class="h-5 w-5" />
+                                    </template>
+                                    <template x-if="!sortAsc">
+                                        <x-svg.chevron-up class="h-5 w-5" />
+                                    </template>
+                                </span>
+                                RC
+                            </button>
+                        </th>
+                        <th scope="col" class="py-2 px-1 text-right text-sm font-semibold text-gray-900">
+                            <button @click.prevent="sortBy('rcg')" class="group inline-flex">
+                                <span :class="sortCol === 'rcg' ? 'bg-gray-200 text-gray-900 group-hover:bg-gray-300': 'invisible text-gray-400 group-hover:visible group-focus:visible'" class="mr-1 flex-none rounded">
+                                    <template x-if="sortAsc">
+                                        <x-svg.chevron-down class="h-5 w-5" />
+                                    </template>
+                                    <template x-if="!sortAsc">
+                                        <x-svg.chevron-up class="h-5 w-5" />
+                                    </template>
+                                </span>
+                                RC/G
+                            </button>
+                        </th>
+                        <th scope="col" class="py-2 px-1 text-right text-sm font-semibold text-gray-900">
+                            <button @click.prevent="sortBy('babip')" class="group inline-flex">
+                                <span :class="sortCol === 'babip' ? 'bg-gray-200 text-gray-900 group-hover:bg-gray-300': 'invisible text-gray-400 group-hover:visible group-focus:visible'" class="mr-1 flex-none rounded">
+                                    <template x-if="sortAsc">
+                                        <x-svg.chevron-down class="h-5 w-5" />
+                                    </template>
+                                    <template x-if="!sortAsc">
+                                        <x-svg.chevron-up class="h-5 w-5" />
+                                    </template>
+                                </span>
+                                BABIP
                             </button>
                         </th>
                         <th scope="col" class="py-2 px-1 text-left text-sm font-semibold text-gray-900">
@@ -313,6 +353,9 @@
                             <td class="px-1 py-2 text-sm text-gray-500 text-right" x-text="player.totals.slg"></td>
                             <td class="px-1 py-2 text-sm text-gray-500 text-right" x-text="player.totals.ops"></td>
                             <td class="px-1 py-2 text-sm text-gray-500 text-right" x-text="player.totals.iso"></td>
+                            <td class="px-1 py-2 text-sm text-gray-500 text-right" x-text="player.totals.rc"></td>
+                            <td class="px-1 py-2 text-sm text-gray-500 text-right" x-text="player.totals.rcg"></td>
+                            <td class="px-1 py-2 text-sm text-gray-500 text-right" x-text="player.totals.babip"></td>
                             <td class="px-1 py-2 text-sm text-gray-500 text-right" x-text="player.totals.games_played"></td>
                             <td class="px-1 py-2 text-sm text-gray-500 text-right" x-text="player.totals.plate_attempts"></td>
                             <td class="px-1 py-2 text-sm text-gray-500 text-right" x-text="player.totals.at_bats"></td>
@@ -382,6 +425,10 @@
                         const slg = at_bats ? Number.parseFloat(taken_bases / at_bats).toFixed(3) : '0.000';
                         const ops = at_bats ? Number.parseFloat((hits + base_on_balls) / plate_attempts + (taken_bases / at_bats)).toFixed(3) : Number.parseFloat((hits + base_on_balls) / plate_attempts).toFixed(3);
                         const iso = Number.parseFloat(slg - avg).toFixed(3);
+                        const rc = Number.parseFloat((hits + base_on_balls) * taken_bases / (at_bats + base_on_balls)).toFixed(0);
+                        const rcg = Number.parseFloat(rc / games_played).toFixed(1);
+                        const babip = (at_bats - strike_outs - home_runs - home_run_outs + sacrifices) ? Number.parseFloat((hits - home_runs) / (at_bats - strike_outs - home_runs - home_run_outs + sacrifices)).toFixed(3) : '0.000';
+
 
                         return {
                             id: player.id,
@@ -406,6 +453,9 @@
                                 slg: slg,
                                 ops: ops,
                                 iso: iso,
+                                rc: rc,
+                                rcg: rcg,
+                                babip: babip,
                             },
                         };
                     });
@@ -418,7 +468,7 @@
                                 return 0;
                             }
 
-                            if (['avg','obp','slg','ops', 'iso'].includes(this.sortCol)) {
+                            if (['avg','obp','slg','ops', 'iso', 'babip'].includes(this.sortCol)) {
                                 if (this.sortAsc) {
                                     return (a.totals[this.sortCol] * 1000) - (b.totals[this.sortCol] * 1000);
                                 }
