@@ -19,6 +19,14 @@
                 </template>
             </div>
             <div>
+                <select x-model="filteredPlayerType" class="text-gray-700">
+                    <option value=""></option>
+                    <option value="active">Active</option>
+                    <option value="sub">Sub</option>
+                    <option value="inactive">Inactive</option>
+                </select>
+            </div>
+            <div>
                 <select x-model="filteredMinGames" class="text-gray-700">
                     <option value="0"></option>
                     <option value="1">1 games min</option>
@@ -385,11 +393,16 @@
                 filteredSeason: 'All',
                 team: @json($team),
                 filteredMinGames: 0,
+                filteredPlayerType: '',
                 sortCol: 'ops',
                 sortAsc: false,
 
                 get results() {
                     let players = [...this.team.players];
+
+                    if (this.filteredPlayerType) {
+                        players = players.filter((player) => player.pivot.role === this.filteredPlayerType);
+                    }
 
                     if (this.filteredSeason !== 'All') {
                         players = players.map((player) => {
