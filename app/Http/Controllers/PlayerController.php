@@ -13,12 +13,10 @@ class PlayerController extends Controller
 {
     public function index()
     {   
-        $players = Player::when(request('search'), function ($query) {
-            return $query->where('name', 'like', '%' . request('search') . '%');
-        })->with('teams')->get();
+        $players = Player::with('stats')->get();
 
         return view('players.index', [
-            'players' => $players->sortBy('name'), 
+            'players' => $players, 
         ]);
     }
 

@@ -33,7 +33,7 @@
     </div>
     <div class="px-4 sm:px-6 lg:px-32">
         <h2 class="text-xl font-semibold text-gray-900 mb-2">Total Stats</h2>
-        <x-team-stats :$team class="min-w-full divide-y divide-gray-300 rounded-lg" />
+        <x-team-stats :$team class="min-w-full rounded-lg" />
     </div>
     <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-7xl lg:px-8">
         <div class="grid grid-cols-1 items-start gap-4 lg:grid-cols-3 lg:gap-8">

@@ -77,7 +77,10 @@
                                 <tbody class="divide-y divide-gray-200 bg-white">
                                     @foreach ($player->stats->sortByDesc('game.date') as $stat) 
                                         <tr>
-                                            <td class="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-6">{{ date('M d, y', strtotime( $stat->game->date )) }}</td>
+                                            <td class="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-6">
+                                                {{ date('M d, y', strtotime( $stat->game->date )) }} - 
+                                                <span class="text-xs">#{{ $loop->remaining + 1 }}</span>
+                                            </td>
                                             <td class="whitespace-nowrap px-2 py-2 text-sm font-medium text-gray-900">
                                                 <a href="/teams/{{ $stat->team->id }}">{{ $stat->team->name }}</a>
                                             </td>

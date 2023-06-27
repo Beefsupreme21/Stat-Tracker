@@ -1,45 +1,49 @@
 @props(['team'])
 
 <div x-data="teamStats" {{ $attributes }}>
-    <div class="flex items-center space-x-1 mb-2 overflow-y-auto" role="group" aria-label="Filter by class">
-        <button @click="filteredSeason = 'All'" 
-            :class="filteredSeason === 'All' ? 'bg-gray-200 text-gray-700' : 'text-gray-500 hover:text-gray-700'"
-            class="px-3 py-2 font-medium text-sm rounded-md"
-            type="button">
-            All
-        </button>
-        <div class="flex grow w-full justify-between items-center">
-            <div class="grow overflow-x-scroll">
-                <template x-for="season in team.seasons">
-                    <button @click="filteredSeason = season.id" 
-                        :class="filteredSeason === season.id ? 'bg-gray-200 text-gray-700' : 'text-gray-500 hover:text-gray-700'"
-                        class="px-3 py-2 font-medium text-sm rounded-md"
-                        type="button" x-text="`${season.year} ${season.name}`">
-                    </button>
-                </template>
-            </div>
-            <div>
-                <select x-model="filteredPlayerType" class="text-gray-700">
-                    <option value=""></option>
-                    <option value="active">Active</option>
-                    <option value="sub">Sub</option>
-                    <option value="inactive">Inactive</option>
-                </select>
-            </div>
-            <div>
-                <select x-model="filteredMinGames" class="text-gray-700">
-                    <option value="0"></option>
-                    <option value="1">1 games min</option>
-                    <option value="2">2 games min</option>
-                    <option value="3">3 games min</option>
-                    <option value="4">4 games min</option>
-                    <option value="5">5 games min</option>
-                    <option value="6">6 games min</option>
-                    <option value="7">7 games min</option>
-                    <option value="8">8 games min</option>
-                    <option value="9">9 games min</option>
-                    <option value="10">10 games min</option>
-                </select>
+    <div class="flex space-x-4 justify-end">
+        <div>
+            <select x-model="filteredPlayerType" class="text-gray-700">
+                <option value=""></option>
+                <option value="active">Active</option>
+                <option value="sub">Sub</option>
+                <option value="inactive">Inactive</option>
+            </select>
+        </div>
+        <div>
+            <select x-model="filteredMinGames" class="text-gray-700">
+                <option value="0"></option>
+                <option value="1">1 games min</option>
+                <option value="2">2 games min</option>
+                <option value="3">3 games min</option>
+                <option value="4">4 games min</option>
+                <option value="5">5 games min</option>
+                <option value="6">6 games min</option>
+                <option value="7">7 games min</option>
+                <option value="8">8 games min</option>
+                <option value="9">9 games min</option>
+                <option value="10">10 games min</option>
+            </select>
+        </div>
+    </div>
+    <div class="overflow-x-auto">
+        <div class="flex items-center space-x-1 mb-2">
+            <button @click="filteredSeason = 'All'" 
+                :class="filteredSeason === 'All' ? 'bg-gray-200 text-gray-700' : 'text-gray-500 hover:text-gray-700'"
+                class="flex-none px-3 py-2 font-medium text-sm rounded-md"
+                type="button">
+                All
+            </button>
+            <div class="flex-1">
+                <div class="flex justify-between items-center">
+                    <template x-for="season in team.seasons">
+                        <button @click="filteredSeason = season.id" 
+                            :class="filteredSeason === season.id ? 'bg-gray-200 text-gray-700' : 'text-gray-500 hover:text-gray-700'"
+                            class="px-3 py-2 font-medium text-sm rounded-md whitespace-nowrap"
+                            type="button" x-text="`${season.year} ${season.name}`">
+                        </button>
+                    </template>
+                </div>
             </div>
         </div>
     </div>
