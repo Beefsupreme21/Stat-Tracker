@@ -14,7 +14,7 @@ Route::get('/', [TeamController::class, 'index']);
 Route::resource('/teams', TeamController::class);
 Route::resource('/players', PlayerController::class);
 Route::resource('/games', GameController::class);
-Route::resource('/stats', StatController::class);
+Route::resource('/stats', StatController::class)->except(['index', 'show']);
 
 Route::get('/teams/{team}/players', [TeamPlayerController::class, 'index']);
 Route::post('/teams/{team}/players', [TeamPlayerController::class, 'store']);

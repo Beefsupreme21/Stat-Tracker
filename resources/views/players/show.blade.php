@@ -47,7 +47,68 @@
                         </div>
                     </div>
                 </div>
-                <x-career-stats :$player class="min-w-full divide-y divide-gray-300 rounded-lg" />
+                <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+                <div
+                    x-data="{
+                        stats: {{ json_encode($player->stats) }},
+                        {{-- values: [45, 55, 75, 25, 45, 110], --}}
+                        {{-- labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June'], --}}
+                        init() {
+                            let chart = new ApexCharts(this.$refs.chart, this.options)
+                 
+                            chart.render()
+                 
+                            this.$watch('values', () => {
+                                chart.updateOptions(this.options)
+                            })
+                        },
+                        get values() {
+                            return this.stats.map((stat) => {
+                                const taken_bases = (stat.hits - stat.doubles - stat.triples - stat.home_runs) + (stat.doubles * 2 + stat.triples * 3 + stat.home_runs * 4);
+
+                                return stat.at_bats 
+                                    ? Number.parseFloat((stat.hits + stat.base_on_balls) / stat.plate_attempts + (taken_bases / stat.at_bats)).toFixed(3) 
+                                    : Number.parseFloat((stat.hits + stat.base_on_balls) / stat.plate_attempts).toFixed(3);
+                            });
+                        },
+                        get labels() {
+                            return this.stats.map((stat) => {
+                                return stat.game.date;
+                            });
+                        },
+                        get options() {
+                            return {
+                                {{-- chart: { type: 'line', toolbar: false }, --}}
+                                chart: {
+                                    type: 'area',
+                                    height: 420,
+                                    zoom: {
+                                        enabled: false
+                                    }
+                                },
+                                tooltip: {
+                                    marker: false,
+                                },
+                                xaxis: { type: 'datetime', categories: this.labels, },
+                                series: [{
+                                    name: 'OPS',
+                                    data: this.values,
+                                }],
+                                dataLabels: {
+                                    enabled: false
+                                },
+                                stroke: {
+                                    width: 2,
+                                    curve: 'smooth'
+                                },
+                            }
+                        }
+                    }"
+                    class="w-full"
+                >
+                    <div x-ref="chart" class="rounded-lg bg-white p-8"></div>
+                </div>
+                <x-stats.career :$player class="min-w-full divide-y divide-gray-300 rounded-lg" />
                 <div class="mt-8 -my-2 -mx-4 overflow-x-auto sm:-mx-6 md:px-6 lg:px-8 lg:-mx-8">
                     <div class="inline-block min-w-full py-2 align-middle">
                         <h2 class="text-xl font-semibold text-gray-900 mb-2">Recent Games</h2>
@@ -75,7 +136,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 bg-white">
-                                    @foreach ($player->stats->sortByDesc('game.date') as $stat) 
+                                    @foreach ($player->stats as $stat) 
                                         <tr>
                                             <td class="whitespace-nowrap py-2 pl-4 pr-3 text-sm text-gray-500 sm:pl-6">
                                                 {{ date('M d, y', strtotime( $stat->game->date )) }} - 
@@ -95,10 +156,34 @@
                                             <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{{ $stat->strike_outs }}</td>
                                             <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{{ $stat->sacrifices }}</td>
                                             <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-900">{{ $stat->home_run_outs }}</td>
-                                            <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{{ number_format((float)$stat->hits / $stat->at_bats, 3, '.') }}</td>
-                                            <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{{ number_format((float)($stat->hits + $stat->base_on_balls) / $stat->at_bats, 3, '.') }}</td>
-                                            <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{{ number_format((float)$stat->hits / $stat->at_bats, 3, '.') }}</td>
-                                            <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">{{ number_format((float)$stat->hits + $stat->base_on_balls / $stat->plate_attempts + ($stat->taken_bases / $stat->at_bats), 3, '.') }}</td>
+                                            <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">
+                                                @if ($stat->at_bats)
+                                                    {{ number_format((float)$stat->hits / $stat->at_bats, 3, '.') }}
+                                                @else
+                                                    0.000
+                                                @endif
+                                            </td>
+                                            <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">
+                                                @if ($stat->at_bats)
+                                                    {{ number_format((float)($stat->hits + $stat->base_on_balls) / $stat->at_bats, 3, '.') }}
+                                                @else
+                                                    0.000
+                                                @endif
+                                            </td>
+                                            <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">
+                                                @if ($stat->at_bats)
+                                                    {{ number_format((float)$stat->hits / $stat->at_bats, 3, '.') }}
+                                                @else
+                                                    0.000
+                                                @endif
+                                            </td>
+                                            <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500">
+                                                @if ($stat->at_bats)
+                                                    {{ number_format((float)$stat->hits + $stat->base_on_balls / $stat->plate_attempts + ($stat->taken_bases / $stat->at_bats), 3, '.') }}
+                                                @else
+                                                    0.000
+                                                @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

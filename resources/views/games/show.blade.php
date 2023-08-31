@@ -103,7 +103,7 @@
                         <div>{{ $game->location }}</div>
                         <div>{{ $game->opponent }}</div>
                     </div>
-                    <x-statlist :stats="$game->stats" />
+                    <x-stats.game :stats="$game->stats" />
                 </div>
             </div>
         </div>

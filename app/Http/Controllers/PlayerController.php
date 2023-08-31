@@ -42,8 +42,17 @@ class PlayerController extends Controller
 
     public function show(Player $player)
     {
+        $player->load([
+            'teams',
+            'stats.game',
+            'stats.team',
+        ]);
+
+        $player->stats = $player->stats->sortBy('game.date')->values();
+
+
         return view('players.show', [
-            'player' => $player->load('teams', 'stats.game', 'stats.team')
+            'player' => $player
         ]);
     }
 
