@@ -407,13 +407,15 @@
                     }
 
                     if (this.filteredSeason !== 'All') {
-                        players = players.map((player) => {
-                            return {
-                                id: player.id,
-                                name: player.name,
-                                stats: player.stats.filter((stat) => stat.game.season.id === this.filteredSeason)
-                            };
-                        }).filter((player) => player.stats.length);
+                        players = players
+                            .map((player) => {
+                                return {
+                                    id: player.id,
+                                    name: player.name,
+                                    stats: player.stats.filter((stat) => stat.game.season_id === this.filteredSeason)
+                                };
+                            })
+                            .filter((player) => player.stats.length);
                     }
 
                     if (this.filteredMinGames) {

@@ -35,7 +35,7 @@ class TeamController extends Controller
     public function show(Team $team)
     {
         $team->load([
-            'seasons',
+            'seasons.games',
             'players:id,name',
             'players.stats' => function ($query) use ($team) {
                 $query->where('team_id', $team->id);

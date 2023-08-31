@@ -9,17 +9,6 @@ class Stat extends Model
 {
     use HasFactory;
 
-    protected $appends = [
-        'avg',
-        'obp',
-        'slg',
-        'ops',
-        'iso',
-        'rc',
-        'babip',
-        'taken_bases',
-    ];
-
     protected $fillable = [
         'game_id',
         'player_id',
@@ -86,7 +75,9 @@ class Stat extends Model
 
     public function getRcAttribute()
     {
-        return number_format(($this->hits + $this->base_on_balls) * $this->taken_bases / ($this->at_bats + $this->base_on_balls), 1);
+        return ($this->at_bats + $this->base_on_balls)
+            ? number_format(($this->hits + $this->base_on_balls) * $this->taken_bases / ($this->at_bats + $this->base_on_balls), 1)
+            : '0';
     }
     
     public function getSlgAttribute()
