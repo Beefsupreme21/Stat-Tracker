@@ -40,6 +40,7 @@ class StatController extends Controller
             'base_on_balls' => 'nullable',
             'strike_outs' => 'nullable',
             'sacrifices' => 'nullable',
+            'double_plays' => 'nullable',
             'home_run_outs' => 'nullable',
         ]);
 
@@ -69,6 +70,7 @@ class StatController extends Controller
             'base_on_balls' => 'nullable',
             'strike_outs' => 'nullable',
             'sacrifices' => 'nullable',
+            'double_plays' => 'nullable',
             'home_run_outs' => 'nullable',
         ]);
 

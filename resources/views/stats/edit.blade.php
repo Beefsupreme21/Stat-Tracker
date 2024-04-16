@@ -65,6 +65,9 @@
                         <input type="text" name="sacrifices" class="bg-black" size="3" value="{{ $stat->sacrifices }}">
                     </td>
                     <td class="p-3 border-r border-gray-600">
+                        <input type="text" name="double_plays" class="bg-black" size="3" value="{{ $stat->double_plays }}">
+                    </td>
+                    <td class="p-3 border-r border-gray-600">
                         <input type="text" name="home_run_outs" class="bg-black" size="3" value="{{ $stat->home_run_outs }}">
                     </td>
                     <td class="px-4 py-3">{{ number_format((float)$stat->hits / $stat->at_bats, 3, '.') }}</td>

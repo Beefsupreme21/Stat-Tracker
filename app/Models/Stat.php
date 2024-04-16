@@ -24,6 +24,7 @@ class Stat extends Model
         'base_on_balls',
         'strike_outs',
         'sacrifices',
+        'double_plays',
         'home_run_outs',
     ];
 
