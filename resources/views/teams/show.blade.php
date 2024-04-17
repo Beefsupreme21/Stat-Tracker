@@ -31,7 +31,7 @@
             </div>
         </div>
     </div>
-    <div class="px-4 sm:px-6 lg:px-32">
+    <div class="px-4 sm:px-6 lg:px-24">
         <h2 class="text-xl font-semibold text-gray-900 mb-2">Total Stats</h2>
         <x-stats.team :$team class="min-w-full rounded-lg" />
     </div>

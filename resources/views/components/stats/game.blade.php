@@ -17,6 +17,7 @@
             <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-right text-sm font-semibold text-gray-900">BB</th>
             <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-right text-sm font-semibold text-gray-900">SO</th>
             <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-right text-sm font-semibold text-gray-900">SAC</th>
+            <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-right text-sm font-semibold text-gray-900">DP</th>
             <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-right text-sm font-semibold text-gray-900">HRO</th>
             <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-right text-sm font-semibold text-gray-900">TB</th>
             <th scope="col" class="whitespace-nowrap px-2 py-3.5 text-right text-sm font-semibold text-gray-900">AVG</th>
@@ -45,6 +46,7 @@
                 <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right">{{ $stat->base_on_balls }}</td>
                 <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right">{{ $stat->strike_outs }}</td>
                 <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right">{{ $stat->sacrifices }}</td>
+                <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right">{{ $stat->double_plays }}</td>
                 <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right">{{ $stat->home_run_outs }}</td>
                 <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right">{{ $stat->taken_bases }}</td>
                 <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right">{{ $stat->avg }}</td>
@@ -90,6 +92,9 @@
             </td>
             <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right">
                 {{ $stats->sum('sacrifices') }}
+            </td>
+            <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right">
+                {{ $stats->sum('double_plays') }}
             </td>
             <td class="whitespace-nowrap px-2 py-2 text-sm text-gray-500 text-right">
                 {{ $stats->sum('home_run_outs') }}

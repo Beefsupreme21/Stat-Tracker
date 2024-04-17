@@ -325,6 +325,19 @@
                             </button>
                         </th>
                         <th scope="col" class="py-2 px-1 text-right text-sm font-semibold text-gray-900">
+                            <button @click.prevent="sortBy('double_plays')" class="group inline-flex">
+                                <span :class="sortCol === 'double_plays' ? 'bg-gray-200 text-gray-900 group-hover:bg-gray-300': 'invisible text-gray-400 group-hover:visible group-focus:visible'" class="mr-1 flex-none rounded">
+                                    <template x-if="sortAsc">
+                                        <x-svg.chevron-down class="h-5 w-5" />
+                                    </template>
+                                    <template x-if="!sortAsc">
+                                        <x-svg.chevron-up class="h-5 w-5" />
+                                    </template>
+                                </span>
+                                DP
+                            </button>
+                        </th>
+                        <th scope="col" class="py-2 px-1 text-right text-sm font-semibold text-gray-900">
                             <button @click.prevent="sortBy('home_run_outs')" class="group inline-flex">
                                 <span :class="sortCol === 'home_run_outs' ? 'bg-gray-200 text-gray-900 group-hover:bg-gray-300': 'invisible text-gray-400 group-hover:visible group-focus:visible'" class="mr-1 flex-none rounded">
                                     <template x-if="sortAsc">
@@ -378,6 +391,7 @@
                             <td class="px-1 py-2 text-sm text-gray-500 text-right" x-text="player.totals.base_on_balls"></td>
                             <td class="px-1 py-2 text-sm text-gray-500 text-right" x-text="player.totals.strike_outs"></td>
                             <td class="px-1 py-2 text-sm text-gray-500 text-right" x-text="player.totals.sacrifices"></td>
+                            <td class="px-1 py-2 text-sm text-gray-500 text-right" x-text="player.totals.double_plays"></td>
                             <td class="px-1 py-2 text-sm text-gray-500 text-right" x-text="player.totals.home_run_outs"></td>
                             <td class="py-2 pl-1 pr-3 text-sm text-gray-500 text-right" x-text="player.totals.taken_bases"></td>
                         </tr>
@@ -435,6 +449,7 @@
                         const base_on_balls = player.stats.reduce((a, b) => a + b.base_on_balls, 0);
                         const strike_outs = player.stats.reduce((a, b) => a + b.strike_outs, 0);
                         const sacrifices = player.stats.reduce((a, b) => a + b.sacrifices, 0);
+                        const double_plays = player.stats.reduce((a, b) => a + b.double_plays, 0);
                         const home_run_outs = player.stats.reduce((a, b) => a + b.home_run_outs, 0);
                         const taken_bases = (hits - doubles - triples - home_runs) + (doubles * 2 + triples * 3 + home_runs * 4);
                         const avg = at_bats ? Number.parseFloat(hits / at_bats).toFixed(3) : '0.000';
@@ -463,6 +478,7 @@
                                 base_on_balls: base_on_balls,
                                 strike_outs: strike_outs,
                                 sacrifices: sacrifices,
+                                double_plays: double_plays,
                                 home_run_outs: home_run_outs,
                                 taken_bases: taken_bases,
                                 avg: avg,
